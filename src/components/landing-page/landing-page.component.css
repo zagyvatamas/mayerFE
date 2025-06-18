@@ -28,4 +28,29 @@ h1{
   background-color: beige;
 }
 
+@media (max-width: 780px) {
+  .d-flex.justify-content-between {
+    flex-direction: column !important;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .d-flex .col-4 {
+    width: 100% !important;
+    max-width: 90%;
+  }
+
+  .services-title {
+    text-align: center;
+    display: block;
+    width: 100%;
+  }
+}
+
+@media (max-width: 500px) {
+  .mobileFix{
+    margin-left: 35px;
+  }
+}
+
 
