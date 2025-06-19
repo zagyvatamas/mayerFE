@@ -15,9 +15,9 @@
     <div class="col-12 col-md-12 pt-5">
         <h2 class="services-title middle">Szolgáltatások</h2>
     </div>
-    <div class="pb-5 pt-5 row">
-        <div *ngFor="let item of services" class="col-4 middle">
-            <div class="card" style="width: 20rem; height: 35rem;">
+    <div class="pb-5 pt-5 row mobile">
+        <div *ngFor="let item of services" class="col-4 pb-5 middle">
+            <div class="card " style="width: 20rem;">
                 <img [src]="item.imageUrl" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title middle">{{item.title}}</h5>
@@ -29,12 +29,12 @@
 </div>
 
 <div class="row aboutMe pt-5 pb-5">
-    <div class="col-4 right">
+    <div class="col-12 col-md-4 right">
         <div class="square">
             <div class="squareImage"></div>
         </div>
     </div>
-    <div class="col-8" >
+    <div class="col-12 col-md-8" >
         <div class="titleAboutMe pb-5 pt-5 middle pe-5"><h2>Rólam</h2></div>
         <div class="descTitle middle pb-5 pt-3">Üdvözletem kedves látogató!</div>
         <div class="middle">
@@ -44,3 +44,15 @@
         </div>
     </div>
 </div>
+
+<footer class="footer text-white py-4">
+  <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
+    <div class="mb-2 mb-md-0">📧</div>
+    <div></div>
+    <div class="d-flex gap-3">
+      <a href="#" class="text-white">📘</a>
+      <a href="#" class="text-white">📸</a>
+    </div>
+  </div>
+</footer>
+
