@@ -5,6 +5,7 @@ import { RegisterComponent } from '../components/register/register.component';
 import { ProfileComponent } from '../components/profile/profile.component';
 import { LandingPageComponent } from '../components/landing-page/landing-page.component';
 import { NavbarComponent } from '../components/navbar/navbar.component';
+import { ReservationComponent } from '../components/reservation/reservation.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent},
@@ -12,5 +13,6 @@ export const routes: Routes = [
     { path: 'profile', component: ProfileComponent },
     { path: '', redirectTo: 'landing', pathMatch: 'full' },
     {path: 'landing', component:LandingPageComponent},
-    {path: 'navbar', component:NavbarComponent}
+    {path: 'navbar', component:NavbarComponent},
+    {path: 'reservation', component:ReservationComponent}
 ];
