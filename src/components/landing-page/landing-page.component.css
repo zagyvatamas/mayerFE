@@ -73,6 +73,10 @@ h1{
   background-color: #185c33;
 }
 
+.navbarBg{
+  background-color: #185c33;
+}
+
 
 @media (max-width: 780px) {
   .mobile {
