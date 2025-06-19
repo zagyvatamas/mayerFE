@@ -9,14 +9,15 @@ h1{
   font-weight: bolder;
 }
 .circle{
-  height: 200px;
+  height: 225px;
+  background-color: #185c33;
   width: 225px;
   border-radius: 50%;
   border: 2px solid black;
   
 }
 .circleImage {
-  background-image: url("../../assets/profilkep.jpg");
+  background-image: url("../../assets/masszazs.png");
   width: 100%;
   height: 100%;
   border-radius: 50%;
@@ -27,6 +28,49 @@ h1{
   color: #185c33;
   background-color: beige;
 }
+
+.row{
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.square{
+  height: 400px;
+  width: 400px;
+  
+}
+.card{
+  color: #185c33;
+}
+
+.descAboutMe{
+  width: 50%;
+}
+.descTitle{
+  font-size: 14pt;
+  font-weight: bold;
+}
+
+.squareImage{
+  background-image: url("../../assets/profilkep.jpg");
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  background-size: cover;
+  background-position: center;
+}
+.aboutMe{
+  height: 600px;
+  color: #185c33;
+}
+
+.titleAboutMe{
+  color: #185c33;
+  padding-left: 50px;
+}
+
+
+
 
 @media (max-width: 780px) {
   .d-flex.justify-content-between {
