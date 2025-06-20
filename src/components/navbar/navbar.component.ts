@@ -25,7 +25,7 @@ export class NavbarComponent {
     ) 
   }
 
-  isAuthenticated():boolean {
+  isAuthenticated() {
     return this.authService.isAuthenticated()
   }
 }

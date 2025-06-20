@@ -3,6 +3,7 @@ import { Profile } from '../../interfaces/profile';
 import { AuthService } from '../../service/auth.service';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -14,7 +15,7 @@ export class ProfileComponent implements OnInit {
   profile: Profile | null = null;
   error: string | null = null;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router:Router ) {}
 
   ngOnInit(): void {
     this.authService.getProfile().subscribe({
@@ -23,7 +24,7 @@ export class ProfileComponent implements OnInit {
       },
       error: (err) => {
         this.error = 'Hiba a profil lekérésekor.';
-        console.error(err);
+        this.router.navigate(['login'])
       }
     });
   }

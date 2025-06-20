@@ -1,0 +1,11 @@
+.imageContainer{
+    height: 910px;
+    width: 50%;
+}
+.imagePrices{
+    height: 100%;
+    width: 100%;
+}
+.middle{
+    background-color: beige;
+}
