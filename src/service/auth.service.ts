@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap, throwError } from 'rxjs';
 import { Profile } from '../interfaces/profile';
+import { RegisterData } from '../interfaces/register';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,10 @@ export class AuthService {
     return this.http.post<any>(`${this.apiUrl}/auth/login`, { email, password }).pipe(
       tap(response => localStorage.setItem(this.tokenKey, response.token))
     );
+  }
+
+  register(username: string,email:string, password: string): Observable<RegisterData> {
+    return this.http.post<RegisterData>(`${this.apiUrl}/register`, {username, email, password})
   }
 
   logout(): void {

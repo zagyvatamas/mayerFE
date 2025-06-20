@@ -1,49 +1,41 @@
 <app-navbar></app-navbar>
 
 <div class="container">
-    <div class="row vh-100 align-items-center">
-      <div class="col-lg-4 offset-lg-4 col-md-8 offset-md-2 col-10 offset-1">
-        <div class="rounded-4 border-0 shadow-lg bg-white mb-5" style="min-height: 450px;">
-          <div class="p-5 w-100">
-            <div class="container">
-              <div
-                class="d-flex justify-content-center align-items-center mb-5"
-              >
-                <h2>Bejelentkezés</h2>
-              </div>
-              <form (ngSubmit)="onLogin()">
-                <div class="mb-3">
-                  <label for="email" class="form-label">Email</label>
-                  <input
-                    type="email"
-                    [(ngModel)]="email"
-                    name="email"
-                    id="email"
-                    class="form-control"
-                    required
-                    placeholder="pl. teszt@example.com"
-                  />
-                </div>
-                <div class="mb-3">
-                  <label for="password" class="form-label">Jelszó</label>
-                  <input
-                    type="password"
-                    [(ngModel)]="password"
-                    name="password"
-                    id="password"
-                    class="form-control"
-                    required
-                    placeholder="••••••••"
-                  />
-                </div>
-                <div class="d-flex justify-content-center align-items-center mt-5">
-                  <button type="submit" class="btn btn-primary">Bejelentkezés</button>
-                </div>
-              </form>
-  
+  <div class="row vh-100 align-items-center">
+    <div class="col-lg-4 offset-lg-4 col-md-8 offset-md-2 col-10 offset-1">
+      <div class="rounded-4 border-0 shadow-lg bg-white mb-5" style="min-height: 450px;">
+        <div class="p-5 w-100">
+          <div class="container">
+            <div class="d-flex justify-content-center align-items-center mb-5">
+              <h2>Bejelentkezés</h2>
             </div>
+            <form (ngSubmit)="onLogin()">
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" [(ngModel)]="email" name="email" id="email" class="form-control" required
+                  placeholder="pl. teszt@example.com" />
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">Jelszó</label>
+                <input type="password" [(ngModel)]="password" name="password" id="password" class="form-control"
+                  required placeholder="••••••••" />
+              </div>
+              <div class="register d-flex align-items-center gap-2 pt-3 middle">
+                <div class="">
+                  <p class="mb-0">Nincs még fiókod?</p>
+                </div>
+                <div class="">
+                  <button (click)="navigateToRegister()" class="btn btn-link p-0">Katt ide!</button>
+                </div>
+              </div>
+              <div class="d-flex justify-content-center align-items-center mt-5">
+                <button type="submit" class="btn btn-success">Bejelentkezés</button>
+              </div>
+            </form>
+
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>

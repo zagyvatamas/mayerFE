@@ -1,1 +1,72 @@
-<p>register works!</p>
+<app-navbar></app-navbar>
+
+<div class="container">
+  <div class="row vh-100 align-items-center">
+    <div class="col-lg-4 offset-lg-4 col-md-8 offset-md-2 col-10 offset-1">
+      <div class="rounded-4 border-0 shadow-lg bg-white mb-5" style="min-height: 550px;">
+        <div class="p-5 w-100">
+          <div class="container">
+            <div class="d-flex justify-content-center align-items-center mb-4">
+              <h2>Regisztráció</h2>
+            </div>
+            <form (ngSubmit)="onRegister()">
+              <div class="mb-3">
+                <label for="name" class="form-label">Teljes név</label>
+                <input
+                  type="text"
+                  [(ngModel)]="registerData.username"
+                  name="name"
+                  id="name"
+                  class="form-control"
+                  required
+                  placeholder="pl. Kiss József"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input
+                  type="email"
+                  [(ngModel)]="registerData.email"
+                  name="email"
+                  id="email"
+                  class="form-control"
+                  required
+                  placeholder="pl. teszt@example.com"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">Jelszó</label>
+                <input
+                  type="password"
+                  [(ngModel)]="registerData.password"
+                  name="password"
+                  id="password"
+                  class="form-control"
+                  required
+                  placeholder="••••••••"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="confirmPassword" class="form-label">Jelszó megerősítése</label>
+                <input
+                  type="password"
+                  [(ngModel)]="registerData.confirmPassword"
+                  name="confirmPassword"
+                  id="confirmPassword"
+                  class="form-control"
+                  required
+                  placeholder="••••••••"
+                />
+              </div>
+              <div class="d-flex justify-content-center align-items-center mt-4">
+                <button type="submit" class="btn btn-success">Regisztráció</button>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
