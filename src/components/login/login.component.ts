@@ -23,7 +23,7 @@ export class LoginComponent {
       next: (response) => {
 
         alert("Sikeres bejelentkezés!")
-        this.router.navigate(['profile']); 
+        this.router.navigate(['landing']); 
       },
       error: (error) => {
         console.error('Bejelentkezési hiba:', error);
@@ -33,10 +33,10 @@ export class LoginComponent {
 
   logout() {
     this.authService.logout();
-    this.router.navigate(['/login']); 
+    this.router.navigate(['login']); 
   }
 
   navigateToRegister() {
-    this.router.navigate(['./register'])
+    this.router.navigate(['register'])
   }
 }

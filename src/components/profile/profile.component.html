@@ -1,12 +1,17 @@
+<app-navbar></app-navbar>
+
 <div *ngIf="profile; else errorTpl">
     <h2>Profil adatok</h2>
     <p><strong>ID:</strong> {{ profile.id }}</p>
     <p><strong>Felhasználónév:</strong> {{ profile.username }}</p>
     <p><strong>Email:</strong> {{ profile.email }}</p>
     <p><strong>Szerepkör:</strong> {{ profile.role }}</p>
+    <button (click)="logout()" class="btn btn-success">Kijelentkezés</button>
   </div>
   
   <ng-template #errorTpl>
     <p *ngIf="error">{{ error }}</p>
   </ng-template>
+
+
   
