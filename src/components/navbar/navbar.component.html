@@ -7,8 +7,14 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li *ngFor="let item of navbars" class="nav-item">
-            <a class="nav-link text-light" [routerLink]="item.routes">{{item.pathName}}</a>
+          <li class="nav-item">
+            <a class="nav-link text-light" [routerLink]="'/landing'">Kezdőlap</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" [routerLink]="'/prices'">Árak</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" [routerLink]="'/reservation'">Időpontfoglalás</a>
           </li>
           <li *ngIf="!isAuthenticated()" class="nav-item">
             <a class="nav-link text-light" [routerLink]="'/login'">Bejelentkezés</a>

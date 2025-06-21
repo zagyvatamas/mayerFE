@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { NavbarData } from '../../interfaces/navbar';
-import { NavbarService } from '../../service/navbar.service';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../service/auth.service';
+import { NavbarData } from '../../interfaces/navbar';
 
 @Component({
   selector: 'app-navbar',
@@ -15,14 +14,9 @@ import { AuthService } from '../../service/auth.service';
 export class NavbarComponent {
   navbars:NavbarData[] = []
 
-  constructor (private navbarService: NavbarService, private authService: AuthService) {}
+  constructor (private authService: AuthService) {}
 
   ngOnInit() {
-    this.navbarService.navbarData().subscribe(
-      data =>{
-        this.navbars = data;
-      }
-    ) 
   }
 
   isAuthenticated() {

@@ -1,6 +1,6 @@
 .imageContainer{
     height: 910px;
-    width: 50%;
+    width: 40%;
 }
 .imagePrices{
     height: 100%;
@@ -8,4 +8,10 @@
 }
 .middle{
     background-color: beige;
+}
+
+@media (max-width:500px) {
+    .imageContainer{
+        width: 100%;
+    }
 }
