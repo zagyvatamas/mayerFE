@@ -1,2 +1,36 @@
 <app-navbar></app-navbar>
 
+<h2>Időpontfoglalás</h2>
+
+<label>
+  Dátum:
+  <input type="date" [(ngModel)]="date" (change)="loadAvailability()" />
+</label>
+
+<label>
+  Szolgáltatás
+  <select class="form-select" style="width: 20%;" [(ngModel)]="serviceIdName">
+  <option [ngValue]="null" disabled>Válassz egy szolgáltatást</option>
+  <option *ngFor="let service of serviceData">
+    {{ service.name }}
+  </option>
+</select>
+</label>
+
+<h3>Elérhető időpontok:</h3>
+<ul>
+  <li *ngFor="let time of availableTimes">
+    <label>
+      <input type="radio" name="time" [value]="time" [(ngModel)]="selectedTime" />
+      {{ time }}
+    </label>
+  </li>
+</ul>
+
+<button (click)="bookAppointment()" [disabled]="hasExistingAppointment">
+  Foglalás
+</button>
+
+<div *ngIf="hasExistingAppointment" style="color: red;">
+  Már van egy aktív foglalásod! Egyszerre csak egy időpontot foglalhatsz!
+</div>

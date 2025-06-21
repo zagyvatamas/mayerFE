@@ -4,7 +4,7 @@ import { AuthService } from '../../service/auth.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from '../navbar/navbar.component';
-import { RegisterData } from '../../interfaces/register';
+import { RegisterData } from '../../models/register';
 
 @Component({
   selector: 'app-register',
