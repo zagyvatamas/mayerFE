@@ -8,13 +8,13 @@
 </label>
 
 <label>
-  Szolgáltatás
-  <select class="form-select" style="width: 20%;" [(ngModel)]="serviceIdName">
-  <option [ngValue]="null" disabled>Válassz egy szolgáltatást</option>
-  <option *ngFor="let service of serviceData">
-    {{ service.name }}
-  </option>
-</select>
+  Szolgáltatás:
+  <select class="form-select" style="width: 20%;" [(ngModel)]="serviceId">
+    <option [ngValue]="null" disabled selected>Válassz egy szolgáltatást</option>
+    <option *ngFor="let service of serviceData" [ngValue]="service.id">
+      {{ service.name }}
+    </option>
+  </select>
 </label>
 
 <h3>Elérhető időpontok:</h3>

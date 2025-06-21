@@ -16,7 +16,6 @@ import { JwtDecoderService } from '../../service/jwt-decoder.service';
 })
 export class ReservationComponent {
   services:ReservationServices[] = [];
-  serviceIdName:string = '';
   serviceId:number = 1;
   date = new Date().toISOString().slice(0, 10);
   availableTimes: string[] = [];
@@ -35,7 +34,6 @@ export class ReservationComponent {
   this.reservationService.getServiceData().subscribe({
     next: (data) => {
       this.serviceData = data;
-      this.serviceIdSearch();
       console.log('Beállított serviceId:', this.serviceId);
       this.loadAvailability();
     },
@@ -51,14 +49,7 @@ export class ReservationComponent {
   }
 }
 
-  serviceIdSearch() {
-  const item = this.serviceData.find(data => data.name === this.serviceIdName);
-    if (item) {
-      this.serviceId = item.id; 
-    } else {
-      console.warn('Nem található ilyen nevű szolgáltatás:', this.serviceIdName);
-    }
-  }
+
 
   checkUserAppointments() {
   this.reservationService.getUserAppointments(this.clientName!).subscribe({
