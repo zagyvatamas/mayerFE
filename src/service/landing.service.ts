@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { LandingServices } from '../interfaces/landing-services';
+import { LandingServices } from '../models/landing-services';
 import { map, Observable } from 'rxjs';
 
 @Injectable({

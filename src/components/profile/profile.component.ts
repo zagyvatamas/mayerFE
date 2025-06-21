@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Profile } from '../../interfaces/profile';
+import { Profile } from '../../models/profile';
 import { AuthService } from '../../service/auth.service';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '../navbar/navbar.component';

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LandingServices } from '../../interfaces/landing-services';
+import { LandingServices } from '../../models/landing-services';
 import { LandingService } from '../../service/landing.service';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from "../navbar/navbar.component";

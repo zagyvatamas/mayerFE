@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap, throwError } from 'rxjs';
-import { Profile } from '../interfaces/profile';
-import { RegisterData } from '../interfaces/register';
+import { Profile } from '../models/profile';
+import { RegisterData } from '../models/register';
 import { Router } from '@angular/router';
 
 @Injectable({
