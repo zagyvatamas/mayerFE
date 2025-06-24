@@ -29,3 +29,26 @@ button {
 button:hover {
   background-color: #3498db;
 }
+.list-inline{
+  width: 30%;
+  border: 2px solid blue;
+  border-radius: 15px;
+  margin: 20px;
+  padding: 25px;
+}
+
+@media (max-width:450px) {
+  .form-select{
+    width: 150px;
+  }
+  .list-inline{
+    margin-right: 10px;
+    padding: 0;
+    width: 80%;
+  }
+  .list-inline-item{
+    padding: 10px 0 10px 20px;
+
+  }
+}
+

@@ -13,10 +13,6 @@ import { RegisterData } from '../../models/register';
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
-  // username = "";
-  // email = "";
-  // password = "";
-  // confirmPassword = "";
 
   registerData:RegisterData = {
     username:"",
@@ -32,6 +28,10 @@ export class RegisterComponent {
       next: (response) => {
         alert("Sikeres regisztráció!")
         this.router.navigate(['login'])
+      },
+      error: (error) => {
+        alert("Nem sikerült a regisztráció! Már regisztráltak evvel az emailel!")
+        return;
       }
     })
   }

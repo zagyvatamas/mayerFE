@@ -106,7 +106,7 @@ export class ReservationComponent {
     ).subscribe({
       next: (appointments) => {
         if (appointments.length > 0) {
-          alert('Csak egy foglalásod lehet egyszerre!');
+          alert('Csak egy foglalási kérelmed lehet egyszerre!');
           this.hasExistingAppointment = true; 
           return;
         }
@@ -119,7 +119,7 @@ export class ReservationComponent {
           })
           .subscribe({
             next: () => {
-              alert('Foglalás sikeres!');
+              alert('Köszönjük a foglalási kérelmét! További információkért nézze az emailjét!');
               this.hasExistingAppointment = true;
               this.loadAvailability();
               this.selectedTime = '';
