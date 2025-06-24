@@ -46,6 +46,7 @@ export class ReservationComponent {
     } else {
       console.log('Nincs felhasználónév a tokenben vagy nincs token.');
     }
+    
   }
 
   checkUserAppointments() {
@@ -70,9 +71,26 @@ export class ReservationComponent {
       next: (times) => (this.availableTimes = times),
       error: (err) => alert('Hiba az elérhetőségnél: ' + (err.message || 'Ismeretlen hiba')),
     });
+    
   }
 
   bookAppointment() {
+
+    const selectedService = this.serviceData.find(data => data.id === this.serviceId);
+    const durationTime = selectedService ? selectedService.duration_minutes : 0;
+    
+    const [hour, minute] = this.selectedTime.split(':').map(Number);
+    const startInMinutes = hour * 60 + minute;
+    const endInMinutes = startInMinutes + durationTime;
+
+    const closingTimeInMinutes = 19 * 60; 
+
+    if (endInMinutes > closingTimeInMinutes) {
+      alert("Ez a szolgáltatás túl hosszú ehhez az időponthoz, mert átlépnéd a zárási időt.");
+      return;
+    }
+    
+
     if (!this.selectedTime || !this.serviceId) {
       alert('Kérlek válassz időpontot és szolgáltatást!');
       return;
