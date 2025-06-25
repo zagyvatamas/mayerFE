@@ -6,6 +6,9 @@ import { ReservationService } from '../../service/reservation.service';
 import { ReservationServices, ServiceData } from '../../models/reservations-services';
 import { JwtDecoderService } from '../../service/jwt-decoder.service';
 import { first } from 'rxjs/operators'; // Fontos: Importáld a 'first' operátort
+import { EmailService } from '../../service/email.service';
+import { Profile } from '../../models/profile';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-reservation',
@@ -15,6 +18,10 @@ import { first } from 'rxjs/operators'; // Fontos: Importáld a 'first' operáto
   styleUrl: './reservation.component.css'
 })
 export class ReservationComponent {
+  to = '';
+  subject = 'Tigo masszázs foglalás';
+  text = 'asdasdsadasdsa';
+  profile: Profile | null = null;
   services:ReservationServices[] = [];
   serviceId:number = 1;
   date = new Date().toISOString().slice(0, 10);
@@ -24,9 +31,7 @@ export class ReservationComponent {
   serviceData:ServiceData[] = [] 
   hasExistingAppointment = false;
 
-  constructor(private reservationService: ReservationService, private jwtDecoder: JwtDecoderService) {
-    
-  }
+  constructor(private reservationService: ReservationService, private jwtDecoder: JwtDecoderService, private emailService: EmailService, private authService: AuthService) {}
 
   ngOnInit() {
     this.clientName = this.jwtDecoder.getUsernameFromToken();
@@ -46,7 +51,17 @@ export class ReservationComponent {
     } else {
       console.log('Nincs felhasználónév a tokenben vagy nincs token.');
     }
-    
+
+    this.authService.getProfile().subscribe({
+      next: (data) => {
+        this.profile = data;
+        this.to = data.email;
+        console.log('Profil betöltve:', data);
+      },
+      error: (err) => {
+
+      }
+    });
   }
 
   checkUserAppointments() {
@@ -75,7 +90,6 @@ export class ReservationComponent {
   }
 
   bookAppointment() {
-
     const selectedService = this.serviceData.find(data => data.id === this.serviceId);
     const durationTime = selectedService ? selectedService.duration_minutes : 0;
     
@@ -123,6 +137,7 @@ export class ReservationComponent {
               this.hasExistingAppointment = true;
               this.loadAvailability();
               this.selectedTime = '';
+              this.onSend();
             },
             error: (err) => alert('Foglalási hiba: ' + (err.error?.message || 'Ismeretlen hiba')),
           });
@@ -133,4 +148,18 @@ export class ReservationComponent {
       }
     });
   }
+
+  onSend() {
+  const recipientEmail = this.profile?.email;
+
+  if (!recipientEmail) {
+    alert('Nem található email cím a profilban.');
+    return;
+  }
+
+  this.emailService.sendEmail(recipientEmail, this.subject, this.text)
+    .subscribe({
+      error: (err) => alert('Hiba történt az email küldésekor: ' + err.error?.error),
+    });
+}
 }
