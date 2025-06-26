@@ -1,4 +1,5 @@
 export class ReservationServices{
+    id?:number;
     service_id?:number;
     client_name?:string;
     date?:Date;

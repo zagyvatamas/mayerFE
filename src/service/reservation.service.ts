@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map,Observable } from 'rxjs';
-import { ServiceData } from '../models/reservations-services';
+import { ReservationServices, ServiceData } from '../models/reservations-services';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +34,14 @@ export class ReservationService {
   getUserAppointments(clientName: string): Observable<any[]> {
     const params = new HttpParams().set('clientName', clientName);
     return this.http.get<any[]>(`${this.apiUrl}/appointments`, { params });
+  }
+
+  getAllApointments():Observable<ReservationServices[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/allApointments`)
+  }
+
+  deleteAppointment(id: number | undefined): Observable<any[]> {
+    return this.http.delete<any[]>(`${this.apiUrl}/appointments/${id}`);
   }
 
 }

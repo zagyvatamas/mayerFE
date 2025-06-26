@@ -5,7 +5,7 @@ import { CommonModule} from '@angular/common';
 import { ReservationService } from '../../service/reservation.service';
 import { ReservationServices, ServiceData } from '../../models/reservations-services';
 import { JwtDecoderService } from '../../service/jwt-decoder.service';
-import { first } from 'rxjs/operators'; // Fontos: Importáld a 'first' operátort
+import { first } from 'rxjs/operators'; 
 import { EmailService } from '../../service/email.service';
 import { Profile } from '../../models/profile';
 import { AuthService } from '../../service/auth.service';
@@ -20,7 +20,7 @@ import { AuthService } from '../../service/auth.service';
 export class ReservationComponent {
   to = '';
   subject = 'Tigo masszázs foglalás';
-  text = 'asdasdsadasdsa';
+  text = '';
   profile: Profile | null = null;
   services:ReservationServices[] = [];
   serviceId:number = 1;
@@ -115,6 +115,8 @@ export class ReservationComponent {
       return;
     }
 
+    const reservedTime = this.selectedTime;
+
     this.reservationService.getUserAppointments(this.clientName).pipe(
       first() 
     ).subscribe({
@@ -137,7 +139,7 @@ export class ReservationComponent {
               this.hasExistingAppointment = true;
               this.loadAvailability();
               this.selectedTime = '';
-              this.onSend();
+              this.onSend(reservedTime);
             },
             error: (err) => alert('Foglalási hiba: ' + (err.error?.message || 'Ismeretlen hiba')),
           });
@@ -149,17 +151,40 @@ export class ReservationComponent {
     });
   }
 
-  onSend() {
-  const recipientEmail = this.profile?.email;
+  onSend(time: string) {
+    const recipientEmail = this.profile?.email;
+    const clientName = this.profile?.username || this.clientName || 'Kedves Vendég';
+    const selectedService = this.serviceData.find(data => data.id === this.serviceId)?.name || 'választott szolgáltatás';
 
-  if (!recipientEmail) {
-    alert('Nem található email cím a profilban.');
-    return;
+    if (!recipientEmail) {
+      alert('Nem található email cím a profilban.');
+      return;
+    }
+
+    this.subject = `Masszázs foglalás megerősítése - ${clientName}`;
+
+    this.text = `
+      <html>
+        <body style="font-family: Arial, sans-serif; color: #333;">
+          <h2 style="color: #4CAF50;">Masszázs időpont visszajelzés</h2>
+          <p>Kedves <strong>${clientName}</strong>,</p>
+          <p>Az időpontfoglalás <strong>sikeres</strong> volt!</p>
+          <p>Kérelme jóváhagyásra vár, köszönjük türelmét!</p>
+          <br></br>
+          <p>Kérem erre az üzenetre ne válaszoljon!</p>
+          <p>Üdvözlettel,<br><strong>Tigo Masszázs</strong></p>
+        </body>
+      </html>
+    `;
+
+    this.emailService.sendEmail(recipientEmail, this.subject, this.text)
+      .subscribe({
+        next: () => {
+          console.log('Email elküldve:', recipientEmail);
+        },
+        error: (err) => {
+          alert('Hiba történt az email küldésekor: ' + err.error?.error);
+        },
+      });
   }
-
-  this.emailService.sendEmail(recipientEmail, this.subject, this.text)
-    .subscribe({
-      error: (err) => alert('Hiba történt az email küldésekor: ' + err.error?.error),
-    });
-}
 }

@@ -1,1 +1,18 @@
-<p>reservation-pending works!</p>
+<app-navbar></app-navbar>
+
+<div class="container">
+  <div class="middle"><button class="refresh-button" (click)="refreshPage()">Frissítés</button></div>
+
+  <div class="booking" *ngFor="let booking of bookings">
+    <div class="booking-header">
+      <span>{{ booking.start_time }}</span>
+      <span>{{booking.client_name}}</span>
+      <div class="icons">
+        <span class="icon" (click)="approve(booking)">✅</span>
+        <span class="icon" (click)="reject(booking)">❌</span>
+      </div>
+    </div>
+    <p>{{ getBookingNameById(booking.service_id) }}</p>
+  </div>
+</div>
+
