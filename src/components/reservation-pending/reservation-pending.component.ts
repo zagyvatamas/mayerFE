@@ -86,7 +86,7 @@ export class ReservationPendingComponent {
             <li><strong>Időpont:</strong> ${startTime}</li>
            <li><strong>Szolgáltatás:</strong> ${serviceName}</li>
           </ul>
-          <p>Kérjük, érkezzen 5-10 perccel korábban.</p>
+          <p>Kérjük a lefoglalt időpontra pontosan érkezzen.</p>
           <p>Üdvözlettel,<br><strong>Tigo Masszázs</strong></p>
         </body>
       </html>

@@ -31,15 +31,34 @@ button:hover {
 }
 .list-inline{
   width: 30%;
-  border: 2px solid blue;
+  border: 2px solid black;
   border-radius: 15px;
   margin: 20px;
   padding: 25px;
 }
 
+.text-dark{
+  border: 2px solid black;
+  border-radius: 15px;
+}
+.text-dark:hover{
+  background-color: pink;
+}
+
+.pickerContainer{
+  width: 50%;
+}
+
+.reservationContainer{
+  background-color: beige;
+}
+
 @media (max-width:450px) {
   .form-select{
-    width: 150px;
+    width: 200px;
+  }
+  select{
+    width: 100%;
   }
   .list-inline{
     margin-right: 10px;
