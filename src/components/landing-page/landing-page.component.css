@@ -45,9 +45,10 @@ h1{
 
 .descAboutMe{
   width: 50%;
+  font-size: 15pt;
 }
 .descTitle{
-  font-size: 14pt;
+  font-size: 17pt;
   font-weight: bold;
 }
 
@@ -60,7 +61,7 @@ h1{
   background-position: center;
 }
 .aboutMe{
-  height: 600px;
+  height: 800px;
   color: #185c33;
 }
 
@@ -72,6 +73,21 @@ h1{
 .footer{
   background-color: #185c33;
 }
+
+.mainTitle{
+  font-style: italic;
+  font-weight: bolder;
+  padding-right: 23%;
+}
+.mainDesc{
+  padding-right: 10%;
+}
+.mainText{
+  padding-right: 15%;
+  padding-top: 10px;
+  font-size: 14pt;
+}
+
 
 
 
@@ -104,6 +120,11 @@ h1{
   }
   .aboutMe{
     height: 1200px;
+  }
+  .right{
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 @media (min-width: 900px) {
