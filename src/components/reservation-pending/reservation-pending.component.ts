@@ -94,7 +94,16 @@ export class ReservationPendingComponent {
     this.emailService.sendEmail(recipientEmail, this.subject, this.text)
       .subscribe({
         next: () => {
-          console.log('Email elküldve:', recipientEmail);
+          this.reservationService.deleteAppointment(bookingToApprove.id).subscribe({
+            next: () => {
+              alert('Foglalás elfogadva!');
+              this.bookings = this.bookings.filter(b => b.id !== bookingToApprove.id);
+            },
+            error: (err) => {
+              console.error('Hiba történt a törlés során:', err);
+            }
+          });
+
         },
         error: (err) => {
           alert('Hiba történt az email küldésekor: ' + err.error?.error);
@@ -114,24 +123,29 @@ export class ReservationPendingComponent {
           <h2 style="color: #4CAF50;">Masszázs időpont visszaigazolása</h2>
           <p>Kedves <strong>${clientName}</strong>,</p>
           <p>Sajnálattal értesítem, hogy az időpont foglalását el kell utasítanom mert az ön által kiválasztott időpont nem megfelelő nekem.</p>
-          <p>Próbálkozzon másik időpontal, megértését köszönöm!</p>
+          <p>Próbálkozzon másik időponttal, megértését köszönöm!</p>
           <p>Üdvözlettel,<br><strong>Tigo Masszázs</strong></p>
         </body>
       </html>
     `;
-    this.emailService.sendEmail(recipientEmail, this.subject, this.text)
-      .subscribe({
-        next: () => {
-          console.log('Email elküldve:', recipientEmail);
-        },
-        error: (err) => {
-          alert('Hiba történt az email küldésekor: ' + err.error?.error);
-          return;
-        },
-      });
 
-    this.reservationService.deleteAppointment(bookingToDecline.id)
-
+    this.emailService.sendEmail(recipientEmail, this.subject, this.text).subscribe({
+      next: () => {
+        console.log('Email elküldve:', recipientEmail);
+        this.reservationService.deleteAppointment(bookingToDecline.id).subscribe({
+          next: () => {
+            alert('Foglalás törölve:');
+            this.bookings = this.bookings.filter(b => b.id !== bookingToDecline.id);
+          },
+          error: (err) => {
+            console.error('Hiba történt a törlés során:', err);
+          }
+        });
+      },
+      error: (err) => {
+        alert('Hiba történt az email küldésekor: ' + err.error?.error);
+      },
+    });
   }
   
 }
