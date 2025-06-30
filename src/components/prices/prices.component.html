@@ -1,7 +1,25 @@
 <app-navbar></app-navbar>
 
 <div class="middle">
-    <div class="imageContainer">
-        <img class="imagePrices" [src]="image" alt="">
+    <div class="priceContainer">
+        <div class="title middle">
+            <h2>Szolgáltatások</h2>
+        </div>
+        <div class="pb-5 row mobile">
+            <div *ngFor="let item of prices" class="col-4 pb-5 middle">
+                <div class="card" style="width: 20rem; height: 30rem;">
+                    <img [src]="item.imageUrl" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title middle">{{item.title}}</h5>
+                        <div class="middle">
+                            <p class="card-text pt-3">{{item.description}}</p>
+                        </div>
+                        <div class="middle">
+                            <h4 class="card-text pt-3 pb-3">{{item.price}} Ft</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

@@ -1,17 +1,28 @@
-.imageContainer{
-    height: 910px;
-    width: 40%;
-}
-.imagePrices{
+.priceContainer{
+    background-color: beige;
     height: 100%;
     width: 100%;
 }
-.middle{
-    background-color: beige;
+.title{
+    font-style: italic;
+    padding: 40px 0 40px 0;
 }
 
-@media (max-width:500px) {
-    .imageContainer{
-        width: 100%;
-    }
+@media (max-width: 780px) {
+  .mobile {
+    flex-direction: column !important;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .mobile .col-4 {
+    width: 100% !important;
+    max-width: 90%;
+  }
+
+  .services-title {
+    text-align: center;
+    display: block;
+    width: 100%;
+  }
 }
