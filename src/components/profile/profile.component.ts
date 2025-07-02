@@ -21,10 +21,13 @@ export class ProfileComponent implements OnInit {
     this.authService.getProfile().subscribe({
       next: (data) => {
         this.profile = data;
+        console.log(this.profile);
+        
       },
       error: (err) => {
         this.error = 'Hiba a profil lekérésekor.';
         this.router.navigate(['login'])
+        localStorage.removeItem('token')
       }
     });
   }

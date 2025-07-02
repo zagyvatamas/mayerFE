@@ -35,24 +35,36 @@
                 />
               </div>
               <div class="mb-3">
+                <label for="age" class="form-label">Életkor</label>
+                <input
+                  type="number"
+                  [(ngModel)]="registerData.age"
+                  name="age"
+                  id="age"
+                  class="form-control"
+                  required
+                  placeholder="1-99"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="gender" class="form-label">Neme</label>
+                <input
+                  type="text"
+                  [(ngModel)]="registerData.gender"
+                  name="gender"
+                  id="gender"
+                  class="form-control"
+                  required
+                  placeholder="Férfi"
+                />
+              </div>
+              <div class="mb-3">
                 <label for="password" class="form-label">Jelszó</label>
                 <input
                   type="password"
                   [(ngModel)]="registerData.password"
                   name="password"
                   id="password"
-                  class="form-control"
-                  required
-                  placeholder="••••••••"
-                />
-              </div>
-              <div class="mb-3">
-                <label for="confirmPassword" class="form-label">Jelszó megerősítése</label>
-                <input
-                  type="password"
-                  [(ngModel)]="registerData.confirmPassword"
-                  name="confirmPassword"
-                  id="confirmPassword"
                   class="form-control"
                   required
                   placeholder="••••••••"

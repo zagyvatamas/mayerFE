@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap, throwError } from 'rxjs';
-import { Profile } from '../models/profile';
 import { RegisterData } from '../models/register';
 import { Router } from '@angular/router';
 
@@ -20,8 +19,8 @@ export class AuthService {
     );
   }
 
-  register(username: string,email:string, password: string): Observable<RegisterData> {
-    return this.http.post<RegisterData>(`${this.apiUrl}/auth/register`, {username, email, password})
+  register(username: string,email:string, password: string, age:number,gender:string): Observable<RegisterData> {
+    return this.http.post<RegisterData>(`${this.apiUrl}/auth/register`, {username, email, password, age, gender})
   }
 
   logout(): void {

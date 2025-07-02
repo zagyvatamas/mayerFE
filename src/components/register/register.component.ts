@@ -18,13 +18,14 @@ export class RegisterComponent {
     username:"",
     email:"",
     password:"",
-    confirmPassword:"",
+    age:0,
+    gender:""
   }
 
   constructor (private authService: AuthService, private router: Router) {}
 
   onRegister() {
-    this.authService.register(this.registerData.username,this.registerData.email,this.registerData.password).subscribe({
+    this.authService.register(this.registerData.username,this.registerData.email,this.registerData.password, this.registerData.age,this.registerData.gender).subscribe({
       next: (response) => {
         alert("Sikeres regisztráció!")
         this.router.navigate(['login'])
