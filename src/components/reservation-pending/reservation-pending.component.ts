@@ -68,10 +68,12 @@ export class ReservationPendingComponent {
   approve(bookingToApprove: ReservationServices) {
     const recipientEmail = this.profile?.email || '';
     const clientName = this.profile?.username || '';
-    console.log(clientName, recipientEmail);
-    const date = this.selectedBooking?.date ? new Date(this.selectedBooking.date).toLocaleDateString('hu-HU') : '';
-    const startTime = this.selectedBooking?.start_time ? new Date(this.selectedBooking.start_time).toLocaleTimeString('hu-HU', { hour: '2-digit', minute: '2-digit' }) : '';
-    const serviceName = this.getBookingNameById(this.selectedBooking?.service_id);
+    const reservedBooking = this.bookings.find(b => b.id === bookingToApprove.id);
+    const reservedDate = reservedBooking?.date
+      ? new Date(reservedBooking.date).toLocaleDateString('hu-HU')
+      : '';
+    const startTime = reservedBooking?.start_time
+    const serviceName = this.getBookingNameById(reservedBooking?.service_id);
     
     this.subject = `Masszázs foglalás megerősítése - ${clientName}`;
 
@@ -80,9 +82,9 @@ export class ReservationPendingComponent {
         <body style="font-family: Arial, sans-serif; color: #333;">
           <h2 style="color: #4CAF50;">Masszázs időpont visszaigazolása</h2>
           <p>Kedves <strong>${clientName}</strong>,</p>
-          <p>Köszönjük, hogy időpontot foglalt nálunk! Örömmel erősítjük meg a következő masszázskezelési kérelmét!:</p>
+          <p>Köszönjük, hogy időpontot foglalt nálunk! Örömmel értesítjük ,hogy elfogadásra került a masszázskezelési kérelme:</p>
           <ul>
-           <li><strong>Dátum:</strong> ${date}</li>
+           <li><strong>Dátum:</strong> ${reservedDate}</li>
             <li><strong>Időpont:</strong> ${startTime}</li>
            <li><strong>Szolgáltatás:</strong> ${serviceName}</li>
           </ul>
@@ -94,16 +96,7 @@ export class ReservationPendingComponent {
     this.emailService.sendEmail(recipientEmail, this.subject, this.text)
       .subscribe({
         next: () => {
-          this.reservationService.deleteAppointment(bookingToApprove.id).subscribe({
-            next: () => {
-              alert('Foglalás elfogadva!');
-              this.bookings = this.bookings.filter(b => b.id !== bookingToApprove.id);
-            },
-            error: (err) => {
-              console.error('Hiba történt a törlés során:', err);
-            }
-          });
-
+          alert('Foglalás elfogadva!');
         },
         error: (err) => {
           alert('Hiba történt az email küldésekor: ' + err.error?.error);
@@ -131,16 +124,7 @@ export class ReservationPendingComponent {
 
     this.emailService.sendEmail(recipientEmail, this.subject, this.text).subscribe({
       next: () => {
-        console.log('Email elküldve:', recipientEmail);
-        this.reservationService.deleteAppointment(bookingToDecline.id).subscribe({
-          next: () => {
-            alert('Foglalás törölve:');
-            this.bookings = this.bookings.filter(b => b.id !== bookingToDecline.id);
-          },
-          error: (err) => {
-            console.error('Hiba történt a törlés során:', err);
-          }
-        });
+        alert('Foglalás törölve:');
       },
       error: (err) => {
         alert('Hiba történt az email küldésekor: ' + err.error?.error);
