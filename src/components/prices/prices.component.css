@@ -7,6 +7,10 @@
     font-style: italic;
     padding: 40px 0 40px 0;
 }
+.row{
+    margin-right: 0;
+    margin-left: 0;
+}
 
 @media (max-width: 780px) {
   .mobile {

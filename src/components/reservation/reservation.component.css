@@ -51,6 +51,7 @@ button:hover {
 
 .reservationContainer{
   background-color: beige;
+  height: 910px;
 }
 
 @media (max-width:450px) {
