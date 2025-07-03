@@ -102,6 +102,15 @@ export class ReservationPendingComponent {
           alert('Hiba történt az email küldésekor: ' + err.error?.error);
         },
       });
+
+    if (bookingToApprove.id) {
+      this.reservationService.updateAppointmentStatus(bookingToApprove.id, 'accepted').subscribe({
+        next:() =>{
+          bookingToApprove.status = 'accepted'
+        },
+        error:err => console.error('Hiba a státusz frissítésekor', err)
+      })
+    }
   }
 
   reject(bookingToDecline: ReservationServices) {
@@ -130,6 +139,16 @@ export class ReservationPendingComponent {
         alert('Hiba történt az email küldésekor: ' + err.error?.error);
       },
     });
+
+    if (bookingToDecline.id) {
+      this.reservationService.updateAppointmentStatus(bookingToDecline.id, "rejected").subscribe({
+        next: () => {
+          bookingToDecline.status = 'rejected'
+        },
+        error:err => console.error('Hiba a státusz frissítésekor', err)
+      })
+      
+    }
   }
   
 }

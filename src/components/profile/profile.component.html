@@ -7,19 +7,19 @@
         <h2>Személyes adatok</h2>
         <div class="profile-row">
             <div class="profile-label">Név:</div>
-            <div class="profile-value">Kiss József</div>
+            <div class="profile-value">{{profile?.username}}</div>
         </div>
         <div class="profile-row">
             <div class="profile-label">Email:</div>
-            <div class="profile-value">kiss.jozsefexample.com</div>
+            <div class="profile-value">{{profile?.email}}</div>
         </div>
         <div class="profile-row">
-            <div class="profile-label">Telefonszám:</div>
-            <div class="profile-value">+36 70 123 4567</div>
+            <div class="profile-label">Neme</div>
+            <div class="profile-value">{{profile?.gender}}</div>
         </div>
         <div class="profile-row">
-            <div class="profile-label">Születési dátum:</div>
-            <div class="profile-value">1985. május 15.</div>
+            <div class="profile-label">Kor</div>
+            <div class="profile-value">{{profile?.age}}</div>
         </div>
     </div>
 

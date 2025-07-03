@@ -37,11 +37,15 @@ export class ReservationService {
   }
 
   getAllApointments():Observable<ReservationServices[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/allApointments`)
+    return this.http.get<any[]>(`${this.apiUrl}/appointments/pending`)
   }
 
   deleteAppointment(id: number | undefined): Observable<any[]> {
     return this.http.delete<any[]>(`${this.apiUrl}/appointments/${id}`);
+  }
+
+  updateAppointmentStatus(id: number, status: string): Observable<any> {
+    return this.http.put(`${this.apiUrl}/appointments/${id}/status`, { status });
   }
 
 }
