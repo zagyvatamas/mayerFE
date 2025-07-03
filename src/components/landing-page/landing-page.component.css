@@ -87,7 +87,14 @@ h1{
   padding-top: 10px;
   font-size: 14pt;
 }
-
+.facebook{
+  object-fit: scale-down;
+  height: 30px;
+}
+.instagramm{
+  height: 30px;
+  object-fit: scale-down;
+}
 
 
 

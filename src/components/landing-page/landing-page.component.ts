@@ -13,6 +13,7 @@ import { NavbarComponent } from "../navbar/navbar.component";
 })
 export class LandingPageComponent {
   services:LandingServices[] = []
+  infoEmail:string = "tigomasszazsinfo@gmail.com"
 
   constructor(private landingService: LandingService) {}
 
