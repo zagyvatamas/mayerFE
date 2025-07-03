@@ -22,7 +22,7 @@
           <h2>Szolgáltatás:</h2>
         </div>
         <div class="middle pb-5 pt-3">
-          <select class="form-select" style="width: 50%;" [(ngModel)]="serviceId">
+          <select class="form-select" [(ngModel)]="serviceId">
             <option [ngValue]="null" disabled selected>Válassz egy szolgáltatást</option>
             <option *ngFor="let service of serviceData" [ngValue]="service.id">
               {{ service.name }}

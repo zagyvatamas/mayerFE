@@ -1,5 +1,17 @@
 import { Injectable } from '@angular/core';
 
+interface JwtPayload {
+  id: number;
+  username: string;
+  email: string;
+  age: number;
+  gender: string;
+  role: string;
+  iat: number;
+  exp: number;
+  sub?: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -56,12 +68,23 @@ export class JwtDecoderService {
   }
 
   getUsernameFromToken(key: string = 'token'): string | null {
-  const token = this.getTokenFromLocalStorage(key);
-  if (!token) return null;
+    const token = this.getTokenFromLocalStorage(key);
+    if (!token) return null;
 
-  const decoded = this.decodeToken(token);
-  if (!decoded || !decoded.payload) return null;
+    const decoded = this.decodeToken(token);
+    if (!decoded || !decoded.payload) return null;
 
-  return decoded.payload.username ?? decoded.payload.sub ?? null;
+    return decoded.payload.username ?? decoded.payload.sub ?? null;
+  }
+  getEmailFromTokem(key: string = 'token'): string | null {
+    const token = this.getTokenFromLocalStorage(key);
+    if (!token) return null;
+
+    const decoded = this.decodeToken(token);
+    if (!decoded || !decoded.payload) return null;
+
+    const payload: JwtPayload = decoded.payload;
+  return payload.email ?? payload.sub ?? null;
 }
+
 }

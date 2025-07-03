@@ -56,7 +56,7 @@ button:hover {
 
 @media (max-width:450px) {
   .form-select{
-    width: 200px;
+    width: 350px;
   }
   select{
     width: 100%;
@@ -69,6 +69,9 @@ button:hover {
   .list-inline-item{
     padding: 10px 0 10px 20px;
 
+  }
+  .reservationContainer{
+    height: 100%;
   }
 }
 
