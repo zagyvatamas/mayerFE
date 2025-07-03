@@ -64,7 +64,7 @@ export class RegisterComponent {
       this.router.navigate(['login']);
     },
     error: (error) => {
-      if (error.status === 409) { // vagy error.error.message === 'Email already in use'
+      if (error.status === 409) {
         return alert("Nem sikerült a regisztráció! Már regisztráltak evvel az e-mail címmel!");
       }
 

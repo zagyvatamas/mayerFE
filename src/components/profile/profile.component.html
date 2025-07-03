@@ -1,19 +1,43 @@
 <app-navbar></app-navbar>
 
-<div *ngIf="profile; else errorTpl">
-    <h2>Profil adatok</h2>
-    <p><strong>ID:</strong> {{ profile.id }}</p>
-    <p><strong>Felhasználónév:</strong> {{ profile.username }}</p>
-    <p><strong>Email:</strong> {{ profile.email }}</p>
-    <p><strong>Szerepkör:</strong> {{ profile.role }}</p>
-    <p><strong>Kor:</strong> {{ profile.age }}</p>
-    <p><strong>Neme:</strong> {{ profile.gender }}</p>
-    <button (click)="logout()" class="btn btn-success">Kijelentkezés</button>
-  </div>
-  
-  <ng-template #errorTpl>
-    <p *ngIf="error">{{ error }}</p>
-  </ng-template>
+<div class="container">
+    <h1>Profil megtekintés</h1>
+
+    <div class="profile-section">
+        <h2>Személyes adatok</h2>
+        <div class="profile-row">
+            <div class="profile-label">Név:</div>
+            <div class="profile-value">Kiss József</div>
+        </div>
+        <div class="profile-row">
+            <div class="profile-label">Email:</div>
+            <div class="profile-value">kiss.jozsefexample.com</div>
+        </div>
+        <div class="profile-row">
+            <div class="profile-label">Telefonszám:</div>
+            <div class="profile-value">+36 70 123 4567</div>
+        </div>
+        <div class="profile-row">
+            <div class="profile-label">Születési dátum:</div>
+            <div class="profile-value">1985. május 15.</div>
+        </div>
+    </div>
+
+    <div class="profile-section">
+        <h2>Egyéb információk</h2>
+        <div class="profile-row">
+            <div class="profile-label">Megjegyzések:</div>
+            <div class="profile-value multiline">
+                Ide kerülhetnek további információk, például allergiák, preferenciák, vagy bármilyen egyéb megjegyzés, ami fontos lehet a szolgáltatás nyújtásához. Ez a mező hosszabb szöveget is tartalmazhat.
+            </div>
+        </div>
+    </div>
+
+    <div class="button-group">
+        <button (click)="modifyProfile()">Módosítás</button>
+        <button (click)="changePassword()">Jelszó megváltoztatása</button>
+    </div>
+</div>
 
 
   

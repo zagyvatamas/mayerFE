@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
+  standalone:true,
   imports: [CommonModule, NavbarComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
@@ -30,6 +31,18 @@ export class ProfileComponent implements OnInit {
         localStorage.removeItem('token')
       }
     });
+  }
+
+  modifyProfile(): void {
+    // Ide jön a logika a profil módosításához
+    alert('A profil módosítása folyamatban...');
+    // Például: this.router.navigate(['/edit-profile']);
+  }
+
+  changePassword(): void {
+    // Ide jön a logika a jelszó megváltoztatásához
+    alert('A jelszó megváltoztatása folyamatban...');
+    // Például: this.router.navigate(['/change-password']);
   }
 
   logout() {

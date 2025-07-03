@@ -6,6 +6,7 @@
   <div class="booking" *ngFor="let booking of bookings">
     <div class="booking-header">
       <span>{{ booking.start_time }}</span>
+      <span>{{booking.date | date:'yyyy-MM-dd'}}</span>
       <span>{{booking.client_name}}</span>
       <div class="icons">
         <span class="icon" (click)="approve(booking)">✅</span>
