@@ -1,19 +1,40 @@
 <app-navbar></app-navbar>
 
-<div class="container">
-  <div class="middle"><button class="refresh-button" (click)="refreshPage()">Frissítés</button></div>
 
-  <div class="booking" *ngFor="let booking of bookings">
-    <div class="booking-header">
-      <span>{{ booking.start_time }}</span>
-      <span>{{booking.date | date:'yyyy-MM-dd'}}</span>
-      <span>{{booking.client_name}}</span>
-      <div class="icons">
-        <span class="icon" (click)="approve(booking)">✅</span>
-        <span class="icon" (click)="reject(booking)">❌</span>
+
+<div class="row">
+  <div class="col-6">
+    <div class="container">
+      <div class="middle"><button class="refresh-button" (click)="refreshPage()">Frissítés</button></div>
+
+      <div class="booking" *ngFor="let booking of bookings">
+        <div class="booking-header">
+          <span>{{ booking.start_time }}</span>
+          <span>{{booking.date | date:'yyyy-MM-dd'}}</span>
+          <span>{{booking.client_name}}</span>
+          <div class="icons">
+            <span class="icon" (click)="approve(booking)">✅</span>
+            <span class="icon" (click)="reject(booking)">❌</span>
+          </div>
+        </div>
+        <p>{{ getBookingNameById(booking.service_id) }}</p>
       </div>
     </div>
-    <p>{{ getBookingNameById(booking.service_id) }}</p>
+  </div>
+  <div class="col-6">
+    <div class="container">
+      <div class="middle"><button class="refresh-button" (click)="refreshPage()">Frissítés</button></div>
+
+      <div class="booking" *ngFor="let appointment of otherAppointments">
+        <div class="booking-header">
+          <span>{{ appointment.start_time }}</span>
+          <span>{{appointment.date | date:'yyyy-MM-dd'}}</span>
+          <span>{{appointment.client_name}}</span>
+          <div class="icons">
+            <span class="icon" (click)="onDelete(appointment)">❌</span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-

@@ -19,6 +19,7 @@ export class ReservationPendingComponent {
   subject = 'Tigo masszázs foglalás';
   text = '';
   bookings:ReservationServices[] = [];
+  otherAppointments:ReservationServices[] = []
   bookingName:ServiceData[] = []
   profile: Profile | null = null;
   selectedBooking: ReservationServices | null = null;
@@ -34,7 +35,7 @@ export class ReservationPendingComponent {
         console.error('Hiba történt az adatok lekérésekor:', err);
       }
     });
-    this.reservationService.getAllApointments().subscribe({
+    this.reservationService.getPendingAppointments().subscribe({
       next: (data) => {
         this.bookings = data
         console.log(data);
@@ -54,6 +55,14 @@ export class ReservationPendingComponent {
 
       }
     });
+    this.reservationService.getOtherAppointments().subscribe({
+      next: (data) =>{
+        this.otherAppointments = data
+      },
+      error: (err) => {
+        console.error('Hiba történt az adatok lekérésekor:', err);
+      }
+    })
   }
 
   getBookingNameById(serviceId: number | undefined): string {
@@ -150,5 +159,34 @@ export class ReservationPendingComponent {
       
     }
   }
+
+  onDelete(appointment: ReservationServices) {
+  if (appointment.id) {
+    this.reservationService.postDeletedAppointments({
+      id: appointment.id,
+      service_id: appointment.service_id ?? 0,
+      client_name: appointment.client_name ?? '',
+      date: appointment.date instanceof Date ? appointment.date.toISOString().split('T')[0] : String(appointment.date),
+      start_time: appointment.start_time instanceof Date ? appointment.start_time.toTimeString().split(' ')[0] : String(appointment.start_time),
+      duration_minutes: appointment.duration_minutes ?? 0,
+      status: appointment.status ?? 'pending'
+    }).subscribe({
+      next: () => {
+        this.reservationService.deleteAppointment(appointment.id).subscribe({
+          next: () =>{
+            alert("A foglalás felszabadult!")
+          },
+          error: (err) => {
+            console.error('Hiba a törlés során:', err);
+          }
+        })
+        
+      },
+      error: err => {
+        console.error('Hiba a mentés során:', err);
+      }
+    });
+  }
+}
   
 }
