@@ -1,5 +1,4 @@
 <app-navbar></app-navbar>
-<p *ngIf="editMode" style="color: red">Modal aktív!</p>
 <div class="container">
     <h1>Profil megtekintés</h1>
 
@@ -39,10 +38,8 @@
         <button (click)="logout()">Kijelentkezés</button>
     </div>
 
-    <!-- Modal háttér -->
     <div class="modal-backdrop" *ngIf="editMode" (click)="cancelEdit()"></div>
 
-    <!-- Modal doboz -->
     <div class="modal-wrapper" *ngIf="editMode">
         <div class="modal-box" (click)="$event.stopPropagation()">
             <span class="modal-close" (click)="cancelEdit()">&times;</span>

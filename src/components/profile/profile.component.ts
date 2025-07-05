@@ -30,8 +30,6 @@ export class ProfileComponent implements OnInit {
     this.authService.getProfile().subscribe({
       next: (data) => {
         this.profile = data;
-        console.log(this.profile);
-        
       },
       error: (err) => {
         this.error = 'Hiba a profil lekérésekor.';
@@ -78,7 +76,7 @@ export class ProfileComponent implements OnInit {
 
     this.authService.updateProfile(dataToUpdate).subscribe({
       next: () => {
-        alert('Sikeres frissítés! Újra bejelentkezés után frissülnek az adatok!');
+        alert('Sikeres frissítés! Jelentkezz be újra az adatok frissítéséhez!');
         this.editMode = false;
         this.editData.password = '';
         this.ngOnInit();

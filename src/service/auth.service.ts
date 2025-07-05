@@ -11,6 +11,7 @@ import { UpdateProfileData } from '../models/updateProfileData';
 export class AuthService {
   private apiUrl = 'http://localhost:3000/api'; 
   private tokenKey = 'token';
+  private logoutTimer: any;
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -26,6 +27,9 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem(this.tokenKey);
+    if (this.logoutTimer) {
+      clearTimeout(this.logoutTimer); 
+    }
     this.router.navigate(['landing'])
   }
 
@@ -65,5 +69,18 @@ export class AuthService {
       }
     });
   }
+
+  startTokenTimer() {
+    const oneHour = 60 * 60 * 1000;
+
+    if (this.logoutTimer) {
+      clearTimeout(this.logoutTimer); // ha már van, töröljük
+    }
+
+    this.logoutTimer = setTimeout(() => {
+      this.logout();
+    }, oneHour);
+  }
+  
 
 }

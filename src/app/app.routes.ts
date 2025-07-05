@@ -12,11 +12,11 @@ import { ReservationPendingComponent } from '../components/reservation-pending/r
 export const routes: Routes = [
     { path: 'login', component: LoginComponent},
     { path: 'register', component: RegisterComponent},
-    { path: 'profile', component: ProfileComponent },
+    { path: 'profile', component: ProfileComponent, canActivate: [authGuard]},
     { path: '', redirectTo: 'landing', pathMatch: 'full' },
     {path: 'landing', component:LandingPageComponent},
     {path: 'navbar', component:NavbarComponent},
-    {path: 'reservation', component:ReservationComponent},
+    {path: 'reservation', component:ReservationComponent, canActivate: [authGuard]},
     {path: 'prices', component:PricesComponent},
-    {path: 'reservationPending', component:ReservationPendingComponent}
+    {path: 'reservationPending', component:ReservationPendingComponent, canActivate: [authGuard]}
 ];

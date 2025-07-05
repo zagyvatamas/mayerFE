@@ -23,10 +23,11 @@ export class LoginComponent {
       next: (response) => {
 
         alert("Sikeres bejelentkezés!")
+        this.authService.startTokenTimer();
         this.router.navigate(['landing']); 
       },
       error: (error) => {
-        console.error('Bejelentkezési hiba:', error);
+        alert("Nem sikerült a bejelentkezés!")
       }
     });
   }
