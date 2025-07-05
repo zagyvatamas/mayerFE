@@ -94,7 +94,7 @@ export class ReservationComponent {
     const durationTime = selectedService ? selectedService.duration_minutes : 0;
     
     const [hour, minute] = this.selectedTime.split(':').map(Number);
-    const startInMinutes = hour * 60 + minute;
+    const startInMinutes = hour * 59 + minute;
     const endInMinutes = startInMinutes + durationTime;
 
     const closingTimeInMinutes = 19 * 60; 

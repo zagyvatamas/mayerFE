@@ -1,5 +1,5 @@
 <app-navbar></app-navbar>
-
+<p *ngIf="editMode" style="color: red">Modal aktív!</p>
 <div class="container">
     <h1>Profil megtekintés</h1>
 
@@ -28,17 +28,47 @@
         <div class="profile-row">
             <div class="profile-label">Megjegyzések:</div>
             <div class="profile-value multiline">
-                Ide kerülhetnek további információk, például allergiák, preferenciák, vagy bármilyen egyéb megjegyzés, ami fontos lehet a szolgáltatás nyújtásához. Ez a mező hosszabb szöveget is tartalmazhat.
+                Ide kerülhetnek további információk, például allergiák, preferenciák, vagy bármilyen egyéb megjegyzés,
+                ami fontos lehet a szolgáltatás nyújtásához. Ez a mező hosszabb szöveget is tartalmazhat.
             </div>
         </div>
     </div>
 
     <div class="button-group">
         <button (click)="modifyProfile()">Módosítás</button>
-        <button (click)="changePassword()">Jelszó megváltoztatása</button>
         <button (click)="logout()">Kijelentkezés</button>
     </div>
+
+    <!-- Modal háttér -->
+    <div class="modal-backdrop" *ngIf="editMode" (click)="cancelEdit()"></div>
+
+    <!-- Modal doboz -->
+    <div class="modal-wrapper" *ngIf="editMode">
+        <div class="modal-box" (click)="$event.stopPropagation()">
+            <span class="modal-close" (click)="cancelEdit()">&times;</span>
+            <h2>Profil szerkesztése</h2>
+
+            <form (ngSubmit)="onUpdateProfile()" #profileForm="ngForm">
+                <label>
+                    Új név:
+                    <input type="text" [(ngModel)]="editData.username" name="username" required />
+                </label>
+
+                <label>
+                    Új email:
+                    <input type="email" [(ngModel)]="editData.email" name="email" required />
+                </label>
+
+                <label>
+                    Új jelszó:
+                    <input type="password" [(ngModel)]="editData.password" name="password" />
+                </label>
+
+                <div class="modal-buttons">
+                    <button type="submit">Mentés</button>
+                    <button type="button" (click)="cancelEdit()">Mégse</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
-
-
-  

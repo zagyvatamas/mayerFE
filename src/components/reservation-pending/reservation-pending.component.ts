@@ -106,6 +106,7 @@ export class ReservationPendingComponent {
       .subscribe({
         next: () => {
           alert('Foglalás elfogadva!');
+          window.location.reload();
         },
         error: (err) => {
           alert('Hiba történt az email küldésekor: ' + err.error?.error);
@@ -142,7 +143,8 @@ export class ReservationPendingComponent {
 
     this.emailService.sendEmail(recipientEmail, this.subject, this.text).subscribe({
       next: () => {
-        alert('Foglalás törölve:');
+        alert('Foglalás elutasítva!');
+        window.location.reload();
       },
       error: (err) => {
         alert('Hiba történt az email küldésekor: ' + err.error?.error);
@@ -175,6 +177,7 @@ export class ReservationPendingComponent {
         this.reservationService.deleteAppointment(appointment.id).subscribe({
           next: () =>{
             alert("A foglalás felszabadult!")
+            window.location.reload();
           },
           error: (err) => {
             console.error('Hiba a törlés során:', err);

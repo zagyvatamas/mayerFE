@@ -1,8 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, tap, throwError } from 'rxjs';
+import {Observable, tap, throwError } from 'rxjs';
 import { RegisterData } from '../models/register';
 import { Router } from '@angular/router';
+import { UpdateProfileData } from '../models/updateProfileData';
 
 @Injectable({
   providedIn: 'root'
@@ -55,4 +56,14 @@ export class AuthService {
   isAuthenticated(): boolean {
     return !!localStorage.getItem(this.tokenKey);
   }
+
+  updateProfile(data: UpdateProfileData): Observable<any> {
+    const token = localStorage.getItem('token');
+    return this.http.put(`${this.apiUrl}/auth/update`, data, {
+      headers: {
+       Authorization: `Bearer ${token}`
+      }
+    });
+  }
+
 }
