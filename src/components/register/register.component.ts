@@ -14,6 +14,8 @@ import { JwtDecoderService } from '../../service/jwt-decoder.service';
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
+  hasError:boolean = false;
+  isLoading: boolean = false;
 
   registerData:RegisterData = {
     username:"",
@@ -27,8 +29,10 @@ export class RegisterComponent {
   constructor (private authService: AuthService, private router: Router, private jwtDecoder: JwtDecoderService) {}
 
   onRegister() {
+  if (this.isLoading) return;
+  this.isLoading = true;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const usernameRegex = /^[a-zA-Z0-9_ ]{3,20}$/;
+  const usernameRegex = /^[\p{L}\p{N}_ ]{3,20}$/u;
 
   if (
     !this.registerData.username ||
@@ -60,15 +64,22 @@ export class RegisterComponent {
     this.registerData.gender
   ).subscribe({
     next: (response) => {
+      this.isLoading = false;
       alert("Sikeres regisztráció!");
+      this.hasError = false;
       this.router.navigate(['login']);
     },
     error: (error) => {
+      this.isLoading = false;
+      console.error('Register error:', error);
       if (error.status === 409) {
-        return alert("Nem sikerült a regisztráció! Már regisztráltak evvel az e-mail címmel!");
+        alert("Nem sikerült a regisztráció! Már regisztráltak evvel az e-mail címmel!");
+        this.hasError = true;
+        return;
       }
-
-      return alert("Nem sikerült a regisztráció! Próbáld újra.");
+      alert("Nem sikerült a regisztráció! Próbáld újra.");
+      this.hasError = true;
+      return;
     }
   });
 }

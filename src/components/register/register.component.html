@@ -27,6 +27,7 @@
                 <input
                   type="email"
                   [(ngModel)]="registerData.email"
+                  [ngClass]="{'error-border': hasError}" 
                   name="email"
                   id="email"
                   class="form-control"
