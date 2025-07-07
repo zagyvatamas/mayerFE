@@ -13,13 +13,21 @@ import { NavbarData } from '../../models/navbar';
 })
 export class NavbarComponent {
   navbars:NavbarData[] = []
+  isAdmin:boolean = false
 
   constructor (private authService: AuthService) {}
 
   ngOnInit() {
+    this.authService.isAdmin$.subscribe(isAdmin => {
+      this.isAdmin = isAdmin;
+      if (!isAdmin) {
+        console.log('Nem admin.');
+      }
+    });
   }
 
   isAuthenticated() {
     return this.authService.isAuthenticated()
   }
+
 }

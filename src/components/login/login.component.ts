@@ -19,18 +19,26 @@ export class LoginComponent {
   constructor (private authService: AuthService, private router: Router) {}
 
   onLogin() {
-    this.authService.login(this.email, this.password).subscribe({
-      next: (response) => {
+  this.authService.login(this.email, this.password).subscribe({
+    next: () => {
 
-        alert("Sikeres bejelentkezés!")
-        this.authService.startTokenTimer();
-        this.router.navigate(['landing']); 
-      },
-      error: (error) => {
-        alert("Nem sikerült a bejelentkezés!")
-      }
-    });
-  }
+      this.authService.getProfile().subscribe({
+        next: (user) => {
+          this.authService.setUser(user);
+          alert("Sikeres bejelentkezés!");
+          this.authService.startTokenTimer();
+          this.router.navigate(['landing']);
+        },
+        error: () => {
+          alert("Sikertelen profilbetöltés!");
+        }
+      });
+    },
+    error: () => {
+      alert("Nem sikerült a bejelentkezés!");
+    }
+  });
+}
 
   logout() {
     this.authService.logout();

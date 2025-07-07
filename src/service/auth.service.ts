@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {Observable, tap, throwError } from 'rxjs';
+import {BehaviorSubject, map, Observable, tap, throwError } from 'rxjs';
 import { RegisterData } from '../models/register';
 import { Router } from '@angular/router';
 import { UpdateProfileData } from '../models/updateProfileData';
@@ -12,6 +12,8 @@ export class AuthService {
   private apiUrl = 'http://localhost:3000/api'; 
   private tokenKey = 'token';
   private logoutTimer: any;
+  private userSubject = new BehaviorSubject<any | null>(null);
+  user$ = this.userSubject.asObservable();
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -30,6 +32,7 @@ export class AuthService {
     if (this.logoutTimer) {
       clearTimeout(this.logoutTimer); 
     }
+    this.userSubject.next(null);
     this.router.navigate(['landing'])
   }
 
@@ -74,13 +77,19 @@ export class AuthService {
     const oneHour = 60 * 60 * 1000;
 
     if (this.logoutTimer) {
-      clearTimeout(this.logoutTimer); // ha már van, töröljük
+      clearTimeout(this.logoutTimer);
     }
 
     this.logoutTimer = setTimeout(() => {
       this.logout();
     }, oneHour);
   }
-  
+  isAdmin$ = this.user$.pipe(
+    map(user => user?.role === 'Admin')
+  );
+
+  setUser(user: any) {
+    this.userSubject.next(user);
+  }
 
 }
