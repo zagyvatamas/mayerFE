@@ -13,15 +13,15 @@
             <div class="profile-value">{{profile?.email}}</div>
         </div>
         <div class="profile-row">
-            <div class="profile-label">Neme</div>
+            <div class="profile-label">Neme:</div>
             <div class="profile-value">{{profile?.gender}}</div>
         </div>
         <div class="profile-row">
-            <div class="profile-label">Kor</div>
+            <div class="profile-label">Kor:</div>
             <div class="profile-value">{{profile?.age}}</div>
         </div>
         <div class="profile-row">
-            <div class="profile-label">Jogosultság</div>
+            <div class="profile-label">Jogosultság:</div>
             <div class="profile-value">{{profile?.role}}</div>
         </div>
     </div>
@@ -29,10 +29,21 @@
     <div class="profile-section">
         <h2>Egyéb információk</h2>
         <div class="profile-row">
-            <div class="profile-label">Megjegyzések:</div>
-            <div class="profile-value multiline">
-                Ide kerülhetnek további információk, például allergiák, preferenciák, vagy bármilyen egyéb megjegyzés,
-                ami fontos lehet a szolgáltatás nyújtásához. Ez a mező hosszabb szöveget is tartalmazhat.
+            <div class="profile-label">Összes masszázsal eltöltött idő:</div>
+            <div class="profile-value">
+                {{this.totalDeletedDuration}} perc
+            </div>
+        </div>
+        <div class="profile-row">
+            <div class="profile-label">Összes foglalás</div>
+            <div class="profile-value">
+                {{this.totalDeletedAppointments}} db
+            </div>
+        </div>
+        <div class="profile-row">
+            <div class="profile-label">Összes foglalás</div>
+            <div class="profile-value">
+                {{this.deletedByService}} db
             </div>
         </div>
     </div>

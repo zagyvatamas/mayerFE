@@ -54,4 +54,8 @@ export class ReservationService {
     return this.http.post(`${this.apiUrl}/deleted-appointments`,data)
   }
 
+  getDeletedAppointments():Observable<ReservationServices[]>{
+    return this.http.get<any[]>(`${this.apiUrl}/all-deleted-appointments`)
+  }
+
 }
