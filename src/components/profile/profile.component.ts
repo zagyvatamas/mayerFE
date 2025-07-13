@@ -28,7 +28,6 @@ export class ProfileComponent implements OnInit {
 
   editData = {
     username: '',
-    email: '',
     password: ''
   };
 
@@ -91,8 +90,7 @@ export class ProfileComponent implements OnInit {
 
     if (this.profile) {
       this.editData = {
-        username: this.profile.username || '', 
-        email: this.profile.email || '',     
+        username: this.profile.username || '',     
         password: ''
       };
     }
@@ -108,9 +106,6 @@ export class ProfileComponent implements OnInit {
 
     if (this.editData.username !== this.profile?.username) {
       dataToUpdate.username = this.editData.username;
-    }
-    if (this.editData.email !== this.profile?.email) {
-      dataToUpdate.email = this.editData.email;
     }
     if (this.editData.password) {
       dataToUpdate.password = this.editData.password;

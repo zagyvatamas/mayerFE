@@ -63,17 +63,12 @@
             <form (ngSubmit)="onUpdateProfile()" #profileForm="ngForm">
                 <label>
                     Új név:
-                    <input type="text" [(ngModel)]="editData.username" name="username" required />
-                </label>
-
-                <label>
-                    Új email:
-                    <input type="email" [(ngModel)]="editData.email" name="email" required />
+                    <input type="text" [(ngModel)]="editData.username" name="username"  />
                 </label>
 
                 <label>
                     Új jelszó:
-                    <input type="password" [(ngModel)]="editData.password" name="password" />
+                    <input type="password" [(ngModel)]="editData.password" name="password" required />
                 </label>
 
                 <div class="modal-buttons">
