@@ -20,9 +20,6 @@ export class NavbarComponent {
   ngOnInit() {
     this.authService.isAdmin$.subscribe(isAdmin => {
       this.isAdmin = isAdmin;
-      if (!isAdmin) {
-        console.log('Nem admin.');
-      }
     });
   }
 

@@ -50,7 +50,7 @@ export class ReservationService {
   getOtherAppointments():Observable<ReservationServices[]>{
     return this.http.get<any[]>(`${this.apiUrl}/appointments/accepted-rejected`)
   }
-  postDeletedAppointments(data: {id:number, service_id: number, client_name: string, date: string, start_time: string,duration_minutes:number, status:string}):Observable<any>{
+  postDeletedAppointments(data: {id:number, service_id: number, client_name: string, date: string, start_time: string,duration_minutes:number, status:string, client_email:string}):Observable<any>{
     return this.http.post(`${this.apiUrl}/deleted-appointments`,data)
   }
 

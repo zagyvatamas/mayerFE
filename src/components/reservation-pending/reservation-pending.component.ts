@@ -171,7 +171,8 @@ export class ReservationPendingComponent {
       date: appointment.date instanceof Date ? appointment.date.toISOString().split('T')[0] : String(appointment.date),
       start_time: appointment.start_time instanceof Date ? appointment.start_time.toTimeString().split(' ')[0] : String(appointment.start_time),
       duration_minutes: appointment.duration_minutes ?? 0,
-      status: appointment.status ?? 'pending'
+      status: appointment.status ?? 'pending',
+      client_email: appointment.client_email ?? ''
     }).subscribe({
       next: () => {
         this.reservationService.deleteAppointment(appointment.id).subscribe({

@@ -6,6 +6,7 @@ export class ReservationServices{
     start_time?:Date;
     duration_minutes?:number;
     status?:string;
+    client_email?:string;
 }
 
 export class ServiceData{

@@ -22,7 +22,7 @@ export class ProfileComponent implements OnInit {
   favoriteMassage:boolean = false;
   deletedAppointments:ReservationServices[] = []
   totalDeletedAppointments: number = 0;
-  deletedByService: { [key: number]: number } = {};
+  deletedByService:string = "";
   deletedByMonth: { [key: string]: number } = {};
   totalDeletedDuration: number = 0;
 
@@ -58,35 +58,32 @@ export class ProfileComponent implements OnInit {
   }
 
   calculateStatistics(): void {
-  this.totalDeletedAppointments = this.deletedAppointments.length;
-  this.deletedByService = {};
-  this.deletedByMonth = {};
-  this.totalDeletedDuration = 0;
-  console.log(this.deletedByMonth);
+    this.totalDeletedAppointments = 0;
+    this.deletedByService = "";
+    this.deletedByMonth = {};
+    this.totalDeletedDuration = 0;
   
-  
-
-  for (const appointment of this.deletedAppointments) {
-    if (appointment.duration_minutes) {
-      this.totalDeletedDuration += appointment.duration_minutes;
-    }
-
-    const serviceId = appointment.service_id ?? 0;
-    if (!this.deletedByService[serviceId]) {
-      this.deletedByService[serviceId] = 0;
-    }
-    this.deletedByService[serviceId]++;
-
-    if (appointment.date) {
-      const dateObj = new Date(appointment.date);
-      const monthKey = `${dateObj.getFullYear()}-${(dateObj.getMonth() + 1).toString().padStart(2, '0')}`;
-      if (!this.deletedByMonth[monthKey]) {
-        this.deletedByMonth[monthKey] = 0;
+    for (const appointment of this.deletedAppointments) {
+      if (appointment.duration_minutes && this.profile?.username === appointment.client_name) {
+        this.totalDeletedDuration += appointment.duration_minutes;
+        this.totalDeletedAppointments++
       }
-      this.deletedByMonth[monthKey]++;
+
+
+
+      if (appointment.date) {
+        const dateObj = new Date(appointment.date);
+        const monthKey = `${dateObj.getFullYear()}-${(dateObj.getMonth() + 1).toString().padStart(2, '0')}`;
+        if (!this.deletedByMonth[monthKey]) {
+          this.deletedByMonth[monthKey] = 0;
+        }
+          this.deletedByMonth[monthKey]++;
+      }
     }
+
   }
-}
+
+  
 
 
   modifyProfile(): void {
