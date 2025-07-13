@@ -35,7 +35,7 @@ export class ReservationComponent {
 
   ngOnInit() {
     this.clientName = this.jwtDecoder.getUsernameFromToken();
-
+    
     this.reservationService.getServiceData().subscribe({
       next: (data) => {
         this.serviceData = data;

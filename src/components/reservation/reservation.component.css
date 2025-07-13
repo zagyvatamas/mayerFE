@@ -51,7 +51,7 @@ button:hover {
 
 .reservationContainer{
   background-color: beige;
-  height: 910px;
+  height: 100%;
 }
 
 @media (max-width:450px) {
@@ -70,8 +70,6 @@ button:hover {
     padding: 10px 0 10px 20px;
 
   }
-  .reservationContainer{
-    height: 100%;
-  }
 }
+
 
