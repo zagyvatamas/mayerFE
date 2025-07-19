@@ -1,3 +1,4 @@
+import { appConfig } from './../../app/app.config';
 import { Component } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { CommonModule } from '@angular/common';
@@ -163,34 +164,47 @@ export class ReservationPendingComponent {
   }
 
   onDelete(appointment: ReservationServices) {
-  if (appointment.id) {
-    this.reservationService.postDeletedAppointments({
-      id: appointment.id,
-      service_id: appointment.service_id ?? 0,
-      client_name: appointment.client_name ?? '',
-      date: appointment.date instanceof Date ? appointment.date.toISOString().split('T')[0] : String(appointment.date),
-      start_time: appointment.start_time instanceof Date ? appointment.start_time.toTimeString().split(' ')[0] : String(appointment.start_time),
-      duration_minutes: appointment.duration_minutes ?? 0,
-      status: appointment.status ?? 'pending',
-      client_email: appointment.client_email ?? ''
-    }).subscribe({
-      next: () => {
-        this.reservationService.deleteAppointment(appointment.id).subscribe({
-          next: () =>{
-            alert("A foglalás felszabadult!")
-            window.location.reload();
-          },
-          error: (err) => {
-            console.error('Hiba a törlés során:', err);
-          }
-        })
+    const email = this.profile?.email || '';
+
+    if (!email) {
+      alert('Hiba: nincs email cím megadva, így nem lehet törölni.');
+      return;
+    }
+    
+    if (appointment.id) {
+      this.reservationService.postDeletedAppointments({
+        id: appointment.id,
+        service_id: appointment.service_id ?? 0,
+        client_name: appointment.client_name ?? '',
+        date: appointment.date
+  ? new Date(appointment.date).toISOString().split('T')[0]
+  : '',
+        start_time: appointment.start_time
+  ? (appointment.start_time instanceof Date
+      ? appointment.start_time.toTimeString().split(' ')[0]
+      : appointment.start_time)
+  : '',
+        duration_minutes: appointment.duration_minutes ?? 0,
+        status: appointment.status ?? 'pending',
+        client_email: email
+      }).subscribe({
+        next: () => {
+          this.reservationService.deleteAppointment(appointment.id).subscribe({
+            next: () =>{
+              alert("A foglalás felszabadult!")
+              window.location.reload();
+            },
+            error: (err) => {
+              console.error('Hiba a törlés során:', err);
+            }
+          })
         
-      },
-      error: err => {
-        console.error('Hiba a mentés során:', err);
-      }
-    });
+        },
+        error: err => {
+          console.error('Hiba a mentés során:', err);
+        }
+      });
+    }
   }
-}
   
 }

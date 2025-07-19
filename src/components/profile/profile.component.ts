@@ -133,4 +133,8 @@ export class ProfileComponent implements OnInit {
   logout() {
     return this.authService.logout()
   }
+
+  getServiceById(serviceId:number) {
+    
+  }
 }

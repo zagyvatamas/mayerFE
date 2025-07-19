@@ -1,7 +1,7 @@
 .priceContainer{
     background-color: beige;
     height: 100%;
-    width: 100%;
+    width: 70%;
 }
 .title{
     font-style: italic;
@@ -11,6 +11,7 @@
     margin-right: 0;
     margin-left: 0;
 }
+
 
 @media (max-width: 780px) {
   .mobile {
