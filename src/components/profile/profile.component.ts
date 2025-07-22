@@ -6,7 +6,8 @@ import { NavbarComponent } from '../navbar/navbar.component';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ReservationService } from '../../service/reservation.service';
-import { ReservationServices } from '../../models/reservations-services';
+import { ReservationServices, ServiceData } from '../../models/reservations-services';
+import { forkJoin } from 'rxjs'; // Import forkJoin
 
 @Component({
   selector: 'app-profile',
@@ -19,12 +20,13 @@ export class ProfileComponent implements OnInit {
   profile: Profile | null = null;
   error: string | null = null;
   editMode = false;
-  favoriteMassage:boolean = false;
   deletedAppointments:ReservationServices[] = []
   totalDeletedAppointments: number = 0;
   deletedByService:string = "";
   deletedByMonth: { [key: string]: number } = {};
   totalDeletedDuration: number = 0;
+  serviceData:ServiceData[] = [];
+  favoriteMassage:string = '';
 
   editData = {
     username: '',
@@ -37,23 +39,29 @@ export class ProfileComponent implements OnInit {
     this.authService.getProfile().subscribe({
       next: (data) => {
         this.profile = data;
+        if (this.profile) {
+          forkJoin([
+            this.reservationService.getDeletedAppointments(),
+            this.reservationService.getServiceData()
+          ]).subscribe({
+            next: ([deletedAppointmentsData, serviceDataData]) => {
+              this.deletedAppointments = deletedAppointmentsData;
+              this.serviceData = serviceDataData;
+              this.calculateStatistics();
+            },
+            error: (err) => {
+              this.error = 'Hiba a foglalások vagy szolgáltatások lekérésekor.';
+              console.error(this.error, err);
+            }
+          });
+        }
       },
       error: (err) => {
         this.error = 'Hiba a profil lekérésekor.';
-        this.router.navigate(['login'])
-        localStorage.removeItem('token')
+        this.router.navigate(['login']);
+        localStorage.removeItem('token');
       }
     });
-    this.reservationService.getDeletedAppointments().subscribe({
-      next: (data) => {
-        this.deletedAppointments = data;
-        this.calculateStatistics();
-      },
-      error:(err) => {
-        this.error = 'Hiba a korábbi foglalások lekérdezésekor'
-        console.log(this.error);
-      }
-    })
   }
 
   calculateStatistics(): void {
@@ -61,14 +69,13 @@ export class ProfileComponent implements OnInit {
     this.deletedByService = "";
     this.deletedByMonth = {};
     this.totalDeletedDuration = 0;
-  
+    const serviceCountMap: { [serviceId: number]: number } = {};
+
     for (const appointment of this.deletedAppointments) {
       if (appointment.duration_minutes && this.profile?.username === appointment.client_name) {
         this.totalDeletedDuration += appointment.duration_minutes;
-        this.totalDeletedAppointments++
+        this.totalDeletedAppointments++;
       }
-
-
 
       if (appointment.date) {
         const dateObj = new Date(appointment.date);
@@ -76,21 +83,46 @@ export class ProfileComponent implements OnInit {
         if (!this.deletedByMonth[monthKey]) {
           this.deletedByMonth[monthKey] = 0;
         }
-          this.deletedByMonth[monthKey]++;
+        this.deletedByMonth[monthKey]++;
+      }
+
+      if (this.profile && appointment.client_email === this.profile.email && appointment.service_id != null) {
+        const serviceId = appointment.service_id;
+        serviceCountMap[serviceId] = (serviceCountMap[serviceId] || 0) + 1;
       }
     }
 
+    let maxServiceId: number | null = null;
+    let maxCount = 0;
+
+    for (const [serviceIdStr, count] of Object.entries(serviceCountMap)) {
+      const serviceId = Number(serviceIdStr);
+      if (count > maxCount) {
+        maxServiceId = serviceId;
+        maxCount = count;
+      }
+    }
+
+    if (maxServiceId !== null) {
+      const favoriteService = this.serviceData.find(s => s.id === maxServiceId);
+      if (favoriteService) {
+        this.favoriteMassage = favoriteService.name;
+      } else {
+        console.warn(`Service with ID ${maxServiceId} not found in serviceData.`);
+        this.favoriteMassage = 'Ismeretlen masszázs';
+      }
+    } else {
+      this.favoriteMassage = 'Nincs kedvenc masszázs (még nem törölt foglalás)';
+    }
+
   }
-
-  
-
 
   modifyProfile(): void {
     this.editMode = true;
 
     if (this.profile) {
       this.editData = {
-        username: this.profile.username || '',     
+        username: this.profile.username || '',
         password: ''
       };
     }
@@ -134,7 +166,4 @@ export class ProfileComponent implements OnInit {
     return this.authService.logout()
   }
 
-  getServiceById(serviceId:number) {
-    
-  }
 }
