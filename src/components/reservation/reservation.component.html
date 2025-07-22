@@ -4,20 +4,26 @@
   <div class="middle">
     <div class="row pickerContainer">
       <div class="col-12 col-md-6">
-        <div class="middle pt-5">
+        <div class="middle pt-5" *ngIf="isVisible">
           <h2>Időpontfoglalás</h2>
         </div>
   
-        <div class="middle pt-2 pb-5">
+        <div class="middle pt-2 pb-5" *ngIf="isVisible">
           <label>
             Dátum:
-            <input type="date" [(ngModel)]="date" (change)="loadAvailability()" />
+            <input
+              type="date"
+              [(ngModel)]="date"
+              [min]="minDate"
+              [max]="maxDate"
+              (change)="loadAvailability()" 
+            />
           </label>
         </div>
       </div>
   
   
-      <div class="col-12 col-md-6">
+      <div class="col-12 col-md-6" *ngIf="isVisible">
         <div class="middle pt-5">
           <h2>Szolgáltatás:</h2>
         </div>
@@ -34,10 +40,10 @@
     </div>
   </div>
   
-  <div class="middle pt-2 pb-2">
+  <div class="middle pt-2 pb-2" *ngIf="isVisible">
     <h3>Elérhető időpontok:</h3>
   </div>
-  <div class="middle" >
+  <div class="middle" *ngIf="isVisible">
     <ul class="list-inline">
       <li class="list-inline-item" *ngFor="let time of availableTimes" style="margin-left: 30px;">
         <label class="btn text-dark">
@@ -54,11 +60,14 @@
     </ul>
   </div>
   
-  <div class="middle pb-5 pt-3">
+  <div class="middle pb-5 pt-3" *ngIf="isVisible">
     <button (click)="bookAppointment()" [disabled]="hasExistingAppointment">
       Foglalás
     </button>
   </div>
+
+  <div class="middle pt-5" *ngIf="!isVisible"><h2>Jelenleg sajnos nem elérhető a szolgáltatásom!</h2></div>
+  <div class="middle pt-3" *ngIf="!isVisible"><h2>Kövesd az instagrammomat további infókért!</h2></div>
   
   <div class="middle pt-5" *ngIf="hasExistingAppointment" style="color: red; ">
     Már van egy aktív foglalásod! Egyszerre csak egy időpontot foglalhatsz!

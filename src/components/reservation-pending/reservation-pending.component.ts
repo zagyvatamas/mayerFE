@@ -177,13 +177,13 @@ export class ReservationPendingComponent {
         service_id: appointment.service_id ?? 0,
         client_name: appointment.client_name ?? '',
         date: appointment.date
-  ? new Date(appointment.date).toISOString().split('T')[0]
-  : '',
+        ? new Date(appointment.date).toISOString().split('T')[0]
+        : '',
         start_time: appointment.start_time
-  ? (appointment.start_time instanceof Date
-      ? appointment.start_time.toTimeString().split(' ')[0]
-      : appointment.start_time)
-  : '',
+        ? (appointment.start_time instanceof Date
+        ? appointment.start_time.toTimeString().split(' ')[0]
+        : appointment.start_time)
+        : '',
         duration_minutes: appointment.duration_minutes ?? 0,
         status: appointment.status ?? 'pending',
         client_email: email

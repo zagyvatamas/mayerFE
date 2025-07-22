@@ -8,6 +8,7 @@ import { NavbarComponent } from '../components/navbar/navbar.component';
 import { ReservationComponent } from '../components/reservation/reservation.component';
 import { PricesComponent } from '../components/prices/prices.component';
 import { ReservationPendingComponent } from '../components/reservation-pending/reservation-pending.component';
+import { AvailabilityHandlerComponent } from '../components/availability-handler/availability-handler.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent},
@@ -18,5 +19,6 @@ export const routes: Routes = [
     {path: 'navbar', component:NavbarComponent},
     {path: 'reservation', component:ReservationComponent, canActivate: [authGuard]},
     {path: 'prices', component:PricesComponent},
-    {path: 'reservationPending', component:ReservationPendingComponent, canActivate: [authGuard]}
+    {path: 'reservationPending', component:ReservationPendingComponent, canActivate: [authGuard]},
+    {path: 'availabilityHandler', component:AvailabilityHandlerComponent, canActivate: [authGuard]}
 ];

@@ -3,6 +3,10 @@
   max-width: 600px;
   margin: auto;
 }
+.row{
+    margin-right: 0;
+    margin-left: 0;
+}
 
 .refresh-button {
   background-color: #007bff;

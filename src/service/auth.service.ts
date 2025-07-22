@@ -4,6 +4,7 @@ import {BehaviorSubject, map, Observable, tap, throwError } from 'rxjs';
 import { RegisterData } from '../models/register';
 import { Router } from '@angular/router';
 import { UpdateProfileData } from '../models/updateProfileData';
+import { Profile } from '../models/profile';
 
 @Injectable({
   providedIn: 'root'
@@ -100,7 +101,19 @@ export class AuthService {
         console.error('Hiba a profil betöltésekor:', err);
         this.logout();
       }
-    });
+     });
+    }
   }
+  getAllProfile():Observable<any> {
+    return this.http.get<Profile>(`${this.apiUrl}/auth/all-user`);
+  }
+  deleteProfile(id: number): Observable<any> {
+  const token = localStorage.getItem('token');
+
+  const headers = new HttpHeaders({
+    Authorization: `Bearer ${token}`
+  });
+
+  return this.http.delete<any>(`${this.apiUrl}/auth/delete/${id}`, { headers });
 }
 }

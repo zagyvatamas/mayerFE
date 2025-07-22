@@ -9,6 +9,7 @@ import { first } from 'rxjs/operators';
 import { EmailService } from '../../service/email.service';
 import { Profile } from '../../models/profile';
 import { AuthService } from '../../service/auth.service';
+import { ReservationVisibilityService } from '../../service/reservation-visibility.service';
 
 @Component({
   selector: 'app-reservation',
@@ -30,11 +31,30 @@ export class ReservationComponent {
   clientName:string | null = '';
   serviceData:ServiceData[] = [] 
   hasExistingAppointment = false;
+  minDate: string = '';
+  maxDate: string = '';
+  isVisible: boolean = true;
 
-  constructor(private reservationService: ReservationService, private jwtDecoder: JwtDecoderService, private emailService: EmailService, private authService: AuthService) {}
+  constructor(
+    private reservationService: ReservationService,
+      private jwtDecoder: JwtDecoderService,
+      private emailService: EmailService,
+      private authService: AuthService,
+      private visibilityService: ReservationVisibilityService
+    ) {}
 
   ngOnInit() {
+    const today = new Date();
+    const oneMonthLater = new Date();
+    oneMonthLater.setMonth(today.getMonth() + 1);
+
+    this.minDate = today.toISOString().split('T')[0];
+    this.maxDate = oneMonthLater.toISOString().split('T')[0];
     this.clientName = this.jwtDecoder.getUsernameFromToken();
+
+    this.visibilityService.visible$.subscribe((visible) => {
+      this.isVisible = visible;
+    });
     
     this.reservationService.getServiceData().subscribe({
       next: (data) => {
@@ -82,11 +102,21 @@ export class ReservationComponent {
   }
 
   loadAvailability() {
+    const selectedDate = new Date(this.date);
+    const today = new Date();
+    const maxDate = new Date();
+    maxDate.setMonth(maxDate.getMonth() + 1);
+
+    if (selectedDate > maxDate) {
+      this.availableTimes = [];
+      alert('Csak egy hónapra előre lehet időpontot foglalni.');
+      return;
+    }
+
     this.reservationService.getAvailability(this.serviceId, this.date).subscribe({
       next: (times) => (this.availableTimes = times),
       error: (err) => alert('Hiba az elérhetőségnél: ' + (err.message || 'Ismeretlen hiba')),
     });
-    
   }
 
   bookAppointment() {

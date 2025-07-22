@@ -1,0 +1,27 @@
+<app-navbar></app-navbar>
+
+<div style="text-align: center; padding: 1rem;">
+      <button (click)="toggleVisibility()">
+        {{ isVisible ? 'Foglalás kikapcsolása' : 'Foglalás bekapcsolása' }}
+      </button>
+</div>
+
+<table>
+  <tr *ngIf="profile.length>0">
+    <th>Name</th>
+    <th class="mobile">Age</th>
+    <th>Gender</th>
+    <th>Email</th>
+    <th></th>
+  </tr>
+  <tr *ngFor="let item of profile">
+    <th>{{item.username}}</th>
+    <th class="mobile">{{item.age}}</th>
+    <th>{{item.gender}}</th>
+    <th>{{item.email}}</th>
+    <th class="middle"><button (click)="onDelete(item.id)">Törlés</button></th>
+  </tr>
+  <div *ngIf="profile.length == 0">
+    <div class="middle"><h2 style="color: red;">Még nincsenek felhasználók!</h2></div>
+  </div>
+</table>
