@@ -91,5 +91,16 @@ export class AuthService {
   setUser(user: any) {
     this.userSubject.next(user);
   }
-
+  
+  initializeUserFromToken() {
+  if (this.isAuthenticated()) {
+    this.getProfile().subscribe({
+      next: user => this.setUser(user),
+      error: err => {
+        console.error('Hiba a profil betöltésekor:', err);
+        this.logout();
+      }
+    });
+  }
+}
 }

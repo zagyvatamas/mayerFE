@@ -112,7 +112,7 @@ export class ProfileComponent implements OnInit {
         this.favoriteMassage = 'Ismeretlen masszázs';
       }
     } else {
-      this.favoriteMassage = 'Nincs kedvenc masszázs (még nem törölt foglalás)';
+      this.favoriteMassage = 'Nincs még kedvenc masszázsod, foglalj egyet :)';
     }
 
   }
