@@ -10,7 +10,7 @@ import { AuthService } from '../service/auth.service';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'webshop';
+  title = 'mayermasszazs';
 
   constructor (private authService: AuthService) {}
 

@@ -22,7 +22,8 @@ export class RegisterComponent {
     email:"",
     password:"",
     age:0,
-    gender:""
+    gender:"",
+    phonenumber:""
   }
   occupiedEmail:string | null = ""
 
@@ -39,7 +40,8 @@ export class RegisterComponent {
     !this.registerData.email ||
     !this.registerData.password ||
     !this.registerData.gender ||
-    !this.registerData.age
+    !this.registerData.age ||
+    !this.registerData.phonenumber
   ) {
     return alert("Nem töltötted ki az összes mezőt!");
   }
@@ -61,7 +63,8 @@ export class RegisterComponent {
     this.registerData.email,
     this.registerData.password,
     this.registerData.age,
-    this.registerData.gender
+    this.registerData.gender,
+    this.registerData.phonenumber
   ).subscribe({
     next: (response) => {
       this.isLoading = false;
