@@ -72,6 +72,9 @@ export class ProfileComponent implements OnInit {
     const serviceCountMap: { [serviceId: number]: number } = {};
 
     for (const appointment of this.deletedAppointments) {
+      if (appointment.status !== "accepted") {
+        continue;
+      }
       if (appointment.duration_minutes && this.profile?.username === appointment.client_name) {
         this.totalDeletedDuration += appointment.duration_minutes;
         this.totalDeletedAppointments++;
