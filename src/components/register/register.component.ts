@@ -40,6 +40,10 @@ export class RegisterComponent {
     return alert("Érvénytelen telefonszám formátum!");
   }
 
+  if (this.registerData.gender !== "Férfi" && "Nő".toLocaleLowerCase()) {
+    return alert("A neme Férfi vagy Nő lehet!")
+  }
+
   if (
     !this.registerData.username ||
     !this.registerData.email ||
