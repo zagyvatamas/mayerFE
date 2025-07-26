@@ -34,6 +34,11 @@ export class RegisterComponent {
   this.isLoading = true;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const usernameRegex = /^[\p{L}\p{N}_ ]{3,20}$/u;
+  const phoneRegex = /^(?:\+36|06)\s?[1-9][0-9]\s?\d{3}\s?\d{4}$/;
+
+  if (!phoneRegex.test(this.registerData.phonenumber)) {
+    return alert("Érvénytelen telefonszám formátum!");
+  }
 
   if (
     !this.registerData.username ||

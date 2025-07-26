@@ -5,4 +5,5 @@ export interface Profile {
     email: string;
     age:number;
     gender:string;
+    phonenumber:string;
   }

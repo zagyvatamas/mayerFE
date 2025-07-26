@@ -4,10 +4,11 @@
 
 <table>
   <tr *ngIf="profile.length>0">
-    <th>Name</th>
-    <th class="mobile">Age</th>
-    <th>Gender</th>
+    <th>Név</th>
+    <th class="mobile">Kor</th>
+    <th>Neme</th>
     <th>Email</th>
+    <th>Telefonszám</th>
     <th></th>
   </tr>
   <tr *ngFor="let item of profile">
@@ -15,6 +16,7 @@
     <th class="mobile">{{item.age}}</th>
     <th>{{item.gender}}</th>
     <th>{{item.email}}</th>
+    <th>{{item.phonenumber}}</th>
     <th class="middle"><button (click)="onDelete(item.id)">Törlés</button></th>
   </tr>
   <div *ngIf="profile.length == 0">
