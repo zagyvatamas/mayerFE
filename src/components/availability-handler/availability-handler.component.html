@@ -1,17 +1,6 @@
 <app-navbar></app-navbar>
 
-<div class="block-time-container">
-  <h3>Időpont letiltása</h3>
-  <label>Dátum: <input type="date" [(ngModel)]="date" /></label>
-  <label>Időpont (pl. 10:30): <input type="time" [(ngModel)]="time" /></label>
-  <button (click)="blockTime()">Letiltás</button>
-</div>
 
-<div style="text-align: center; padding: 1rem;">
-      <button (click)="toggleVisibility()">
-        {{ isVisible ? 'Időpontfoglalás kikapcsolása' : 'Időpontfoglalás bekapcsolása' }}
-      </button>
-</div>
 
 <table>
   <tr *ngIf="profile.length>0">
@@ -32,3 +21,22 @@
     <div class="middle"><h2 style="color: red;">Még nincsenek felhasználók!</h2></div>
   </div>
 </table>
+
+<div class="middle mt-5">
+  <div class="block-time-container">
+    <h3>Időpont letiltása</h3>
+    <label>Dátum: <input type="date" [(ngModel)]="date" [min]="minDate" /></label>
+    <label>Időpont (pl. 10:30):
+      <select [(ngModel)]="time">
+        <option *ngFor="let t of timeSlots" [value]="t">{{t}}</option>
+      </select>
+    </label>
+    <button (click)="blockTime()">Letiltás</button>
+  </div>
+</div>
+
+<div class="mt-5" style="text-align: center; padding: 1rem;">
+      <button (click)="toggleVisibility()">
+        {{ isVisible ? 'Időpontfoglalás kikapcsolása' : 'Időpontfoglalás bekapcsolása' }}
+      </button>
+</div>

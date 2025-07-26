@@ -22,10 +22,15 @@ export class AvailabilityHandlerComponent {
   isVisible: boolean = true;
   date: string = '';
   time: string = '';
+  minDate: string = '';
+  timeSlots: string[] = [];
 
   constructor (private authService: AuthService, private router : Router, private visibilityService: ReservationVisibilityService,private blockedService: BlockedTimesService) {}
 
   ngOnInit() {
+    const today = new Date();
+    this.minDate = today.toISOString().split('T')[0];
+    this.timeSlots = this.generateTimeSlots();
     this.visibilityService.visible$.subscribe(v => this.isVisible = v);
     this.authService.getAllProfile().subscribe({
       next: (data) => {
@@ -37,6 +42,15 @@ export class AvailabilityHandlerComponent {
         localStorage.removeItem('token');
       }
     })
+  }
+
+  generateTimeSlots(): string[] {
+    const slots = [];
+    for (let h = 9; h < 19; h++) {
+      slots.push(`${h.toString().padStart(2, '0')}:00`);
+      slots.push(`${h.toString().padStart(2, '0')}:30`);
+    }
+    return slots;
   }
 
   blockTime() {
