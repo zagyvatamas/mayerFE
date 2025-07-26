@@ -27,6 +27,18 @@
     </div>
 
     <div class="profile-section">
+        <h2 *ngIf="userAppointments.length > 0">Aktív foglalás</h2>
+        <div class="profile-row ">
+            <div class="profile-label">Foglalásod:</div>
+            <div class="profile-value" *ngFor="let item of datesAndTimes">{{item.date | date:'yyyy. MMMM dd.'}} {{item.startTime}}</div>
+            <div class="ps-5"*ngFor="let item of userAppointments"><button (click)="cancelAppointment(item.id)" class="btn btn-danger">Lemondás</button></div>
+        </div>
+        <div *ngIf="userAppointments.length === 0" class="profile-row middle">
+            <h4 style="color: #185c33;">Még nincs aktív foglalásod!</h4>
+        </div>
+    </div>
+
+    <div class="profile-section">
         <h2>Egyéb információk</h2>
         <div class="profile-row">
             <div class="profile-label">Összes masszázsal eltöltött idő:</div>

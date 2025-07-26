@@ -28,6 +28,8 @@ export class ProfileComponent implements OnInit {
   totalDeletedDuration: number = 0;
   serviceData:ServiceData[] = [];
   favoriteMassage:string = '';
+  userAppointments:ReservationServices[] = []
+  datesAndTimes: { date?: Date, startTime?: Date }[] = [];
 
   editData = {
     username: '',
@@ -49,6 +51,7 @@ export class ProfileComponent implements OnInit {
               this.deletedAppointments = deletedAppointmentsData;
               this.serviceData = serviceDataData;
               this.calculateStatistics();
+              this.getAppointments()
             },
             error: (err) => {
               this.error = 'Hiba a foglalások vagy szolgáltatások lekérésekor.';
@@ -63,6 +66,32 @@ export class ProfileComponent implements OnInit {
         localStorage.removeItem('token');
       }
     });
+  }
+
+  getAppointments() {
+  const username = this.jwtDecoder.getUsernameFromToken();
+  
+    if (username) {
+      this.reservationService.getUserAppointments(username).subscribe({
+        next: (data) => {
+          this.userAppointments = data;
+          
+          const datesAndTimes = this.userAppointments.map(appointment => {
+            return {
+              date: appointment.date,
+              startTime: appointment.start_time
+            };
+          })
+
+          this.datesAndTimes = datesAndTimes
+        },
+        error: (err) => {
+          console.error("Hiba a felhasználó foglalásainak lekérésekor:", err);
+        }
+      });
+    } else {
+      console.warn("Nincs felhasználónév a tokenből.");
+    }
   }
 
   calculateStatistics(): void {
@@ -183,6 +212,14 @@ export class ProfileComponent implements OnInit {
     }
   }
   
+  cancelAppointment(id:number | undefined) {
+    this.reservationService.deleteAppointment(id).subscribe({
+      next: () => {
+        alert("Sikeresen lemondta a foglalását!")
+        window.location.reload();
+      }
+    })
+  }
 
   logout() {
     return this.authService.logout()
