@@ -165,6 +165,17 @@ export class ReservationComponent {
 
     const closingTimeInMinutes = 19 * 60; 
 
+    const overlaps = this.blockedTimesForSelectedDate.some(bt => {
+    const [btHour, btMinute] = bt.time.split(':').map(Number);
+    const btTime = btHour * 60 + btMinute;
+      return btTime >= startInMinutes && btTime < endInMinutes;
+    });
+
+    if (overlaps) {
+      alert("Hiba: Ez az időpont belelóg egy másik foglalásba vagy blokkolt időszakba.");
+      return;
+    }
+
     if (endInMinutes > closingTimeInMinutes) {
       alert("Ez a szolgáltatás túl hosszú ehhez az időponthoz, mert átlépnéd a zárási időt.");
       return;

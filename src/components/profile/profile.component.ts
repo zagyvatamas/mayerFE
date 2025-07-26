@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { ReservationService } from '../../service/reservation.service';
 import { ReservationServices, ServiceData } from '../../models/reservations-services';
 import { forkJoin } from 'rxjs'; // Import forkJoin
+import { JwtDecoderService } from '../../service/jwt-decoder.service';
 
 @Component({
   selector: 'app-profile',
@@ -33,7 +34,7 @@ export class ProfileComponent implements OnInit {
     password: ''
   };
 
-  constructor(private authService: AuthService, private router:Router, private reservationService:ReservationService ) {}
+  constructor(private authService: AuthService, private router:Router, private reservationService:ReservationService, private jwtDecoder:JwtDecoderService ) {}
 
   ngOnInit(): void {
     this.authService.getProfile().subscribe({
@@ -164,6 +165,24 @@ export class ProfileComponent implements OnInit {
       }
     });
   }
+
+  deleteProfile() {
+    const email = this.jwtDecoder.getEmailFromTokem('token');
+
+    if (email === this.profile?.email && this.profile.id) {
+      this.authService.deleteProfile(this.profile.id).subscribe({
+        next: () => {
+          alert('Profil sikeresen törölve!');
+          this.authService.logout();
+        },
+        error: (err) => {
+          console.error('Hiba a profil törlésekor:', err);
+          alert('Hiba történt a profil törlése közben.');
+        }
+      });
+    }
+  }
+  
 
   logout() {
     return this.authService.logout()

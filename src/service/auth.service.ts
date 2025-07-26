@@ -108,12 +108,12 @@ export class AuthService {
     return this.http.get<Profile>(`${this.apiUrl}/auth/all-user`);
   }
   deleteProfile(id: number): Observable<any> {
-  const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token');
 
-  const headers = new HttpHeaders({
-    Authorization: `Bearer ${token}`
-  });
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
 
-  return this.http.delete<any>(`${this.apiUrl}/auth/delete/${id}`, { headers });
-}
+    return this.http.delete<any>(`${this.apiUrl}/auth/delete/${id}`, { headers });
+  }
 }

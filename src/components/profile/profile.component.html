@@ -51,8 +51,9 @@
     <div class="button-group">
         <button (click)="modifyProfile()">Módosítás</button>
         <button (click)="logout()">Kijelentkezés</button>
+        <button (click)="deleteProfile()">Profil törlése</button>
     </div>
-
+    
     <div class="modal-backdrop" *ngIf="editMode" (click)="cancelEdit()"></div>
 
     <div class="modal-wrapper" *ngIf="editMode">
