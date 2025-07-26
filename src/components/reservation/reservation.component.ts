@@ -10,6 +10,8 @@ import { EmailService } from '../../service/email.service';
 import { Profile } from '../../models/profile';
 import { AuthService } from '../../service/auth.service';
 import { ReservationVisibilityService } from '../../service/reservation-visibility.service';
+import { BlockedTimesService } from '../../service/blockedtimes.service';
+import { BlockedTime } from '../../models/BlockedTime';
 
 @Component({
   selector: 'app-reservation',
@@ -34,13 +36,15 @@ export class ReservationComponent {
   minDate: string = '';
   maxDate: string = '';
   isVisible: boolean = true;
+  blockedTimesForSelectedDate: BlockedTime[] = [];
 
   constructor(
     private reservationService: ReservationService,
       private jwtDecoder: JwtDecoderService,
       private emailService: EmailService,
       private authService: AuthService,
-      private visibilityService: ReservationVisibilityService
+      private visibilityService: ReservationVisibilityService,
+      private blockedService: BlockedTimesService
     ) {}
 
   ngOnInit() {
@@ -102,22 +106,54 @@ export class ReservationComponent {
   }
 
   loadAvailability() {
-    const selectedDate = new Date(this.date);
-    const today = new Date();
-    const maxDate = new Date();
-    maxDate.setMonth(maxDate.getMonth() + 1);
+  const selectedDate = new Date(this.date);
+  const today = new Date();
+  const maxDate = new Date();
+  maxDate.setMonth(maxDate.getMonth() + 1);
 
-    if (selectedDate > maxDate) {
-      this.availableTimes = [];
-      alert('Csak egy hónapra előre lehet időpontot foglalni.');
-      return;
-    }
-
-    this.reservationService.getAvailability(this.serviceId, this.date).subscribe({
-      next: (times) => (this.availableTimes = times),
-      error: (err) => alert('Hiba az elérhetőségnél: ' + (err.message || 'Ismeretlen hiba')),
-    });
+  if (selectedDate > maxDate) {
+    this.availableTimes = [];
+    alert('Csak egy hónapra előre lehet időpontot foglalni.');
+    return;
   }
+
+  this.reservationService.getAvailability(this.serviceId, this.date).subscribe({
+    next: (times) => {
+      this.blockedService.getBlockedTimes().subscribe({
+        next: (blocked) => {
+          this.blockedTimesForSelectedDate = blocked.filter(bt => {
+            const dateObj = new Date(bt.date);
+  
+            const year = dateObj.getFullYear();
+            const month = dateObj.getMonth() + 1;
+            const day = dateObj.getDate();
+
+            const [selYear, selMonth, selDay] = this.date.split('-').map(Number);
+
+            return year === selYear && month === selMonth && day === selDay;
+          });
+
+          this.availableTimes = times.filter(time =>
+            !this.blockedTimesForSelectedDate.some(bt => bt.time.startsWith(time))
+          );
+        },
+        error: (err) => {
+          console.error('Hiba a tiltott időpontok betöltésekor:', err);
+          this.availableTimes = times;
+        }
+      });
+    },
+    error: (err) => {
+      console.error('Hiba az elérhetőségnél:', err);
+      alert('Hiba az elérhetőségnél: ' + (err.message || 'Ismeretlen hiba'));
+    }
+  });
+}
+
+  isTimeBlocked(time: string): boolean {
+    return this.blockedTimesForSelectedDate.some(bt => bt.time === time);
+  }
+
 
   bookAppointment() {
     const selectedService = this.serviceData.find(data => data.id === this.serviceId);

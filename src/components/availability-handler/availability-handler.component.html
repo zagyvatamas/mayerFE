@@ -1,5 +1,12 @@
 <app-navbar></app-navbar>
 
+<div class="block-time-container">
+  <h3>Időpont letiltása</h3>
+  <label>Dátum: <input type="date" [(ngModel)]="date" /></label>
+  <label>Időpont (pl. 10:30): <input type="time" [(ngModel)]="time" /></label>
+  <button (click)="blockTime()">Letiltás</button>
+</div>
+
 <div style="text-align: center; padding: 1rem;">
       <button (click)="toggleVisibility()">
         {{ isVisible ? 'Időpontfoglalás kikapcsolása' : 'Időpontfoglalás bekapcsolása' }}
