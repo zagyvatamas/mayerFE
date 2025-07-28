@@ -16,6 +16,7 @@ import { JwtDecoderService } from '../../service/jwt-decoder.service';
 export class RegisterComponent {
   hasError:boolean = false;
   isLoading: boolean = false;
+  ages: number[] = Array.from({ length: 80 }, (_, i) => i + 1);
 
   registerData:RegisterData = {
     username:"",
@@ -34,14 +35,11 @@ export class RegisterComponent {
   this.isLoading = true;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const usernameRegex = /^[\p{L}\p{N}_ ]{3,20}$/u;
-  const phoneRegex = /^(?:\+36|06)\s?[1-9][0-9]\s?\d{3}\s?\d{4}$/;
+  const phoneRegex = /^(?:\+36)\s?[1-9][0-9]\s?\d{3}\s?\d{4}$/;
 
   if (!phoneRegex.test(this.registerData.phonenumber)) {
+    this.isLoading = false;
     return alert("Érvénytelen telefonszám formátum!");
-  }
-
-  if (this.registerData.gender !== "Férfi" && "Nő".toLocaleLowerCase()) {
-    return alert("A neme Férfi vagy Nő lehet!")
   }
 
   if (

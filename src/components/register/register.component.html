@@ -12,76 +12,38 @@
             <form (ngSubmit)="onRegister()">
               <div class="mb-3">
                 <label for="name" class="form-label">Teljes név</label>
-                <input
-                  type="text"
-                  [(ngModel)]="registerData.username"
-                  name="name"
-                  id="name"
-                  class="form-control"
-                  required
-                  placeholder="pl. Kiss József"
-                />
+                <input type="text" [(ngModel)]="registerData.username" name="name" id="name" class="form-control"
+                  required placeholder="pl. Kiss József" />
               </div>
               <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input
-                  type="email"
-                  [(ngModel)]="registerData.email"
-                  [ngClass]="{'error-border': hasError}" 
-                  name="email"
-                  id="email"
-                  class="form-control"
-                  required
-                  placeholder="pl. teszt@example.com"
-                />
+                <input type="email" [(ngModel)]="registerData.email" [ngClass]="{'error-border': hasError}" name="email"
+                  id="email" class="form-control" required placeholder="pl. teszt@example.com" />
               </div>
               <div class="mb-3">
                 <label for="age" class="form-label">Életkor</label>
-                <input
-                  type="number"
-                  [(ngModel)]="registerData.age"
-                  name="age"
-                  id="age"
-                  class="form-control"
-                  required
-                  placeholder="1-99"
-                />
+                <select [(ngModel)]="registerData.age" name="age" id="age" class="form-control" required>
+                  <option value="" disabled selected>Válassz életkort</option>
+                  <option *ngFor="let age of ages" [value]="age">{{ age }}</option>
+                </select>
               </div>
               <div class="mb-3">
                 <label for="phonenumber" class="form-label">Telefonszám</label>
-                <input
-                  type="number"
-                  [(ngModel)]="registerData.phonenumber"
-                  name="phonenumber"
-                  id="phonenumber"
-                  class="form-control"
-                  required
-                  placeholder="06705554444"
-                />
+                <input type="tel" [(ngModel)]="registerData.phonenumber" name="phonenumber" id="phonenumber"
+                  class="form-control" required placeholder="+36703334444" />
               </div>
               <div class="mb-3">
                 <label for="gender" class="form-label">Neme</label>
-                <input
-                  type="text"
-                  [(ngModel)]="registerData.gender"
-                  name="gender"
-                  id="gender"
-                  class="form-control"
-                  required
-                  placeholder="Férfi"
-                />
+                <select [(ngModel)]="registerData.gender" name="gender" id="gender" class="form-control" required>
+                  <option value="" disabled selected>Válassz nemet</option>
+                  <option value="Férfi">Férfi</option>
+                  <option value="Nő">Nő</option>
+                </select>
               </div>
               <div class="mb-3">
                 <label for="password" class="form-label">Jelszó</label>
-                <input
-                  type="password"
-                  [(ngModel)]="registerData.password"
-                  name="password"
-                  id="password"
-                  class="form-control"
-                  required
-                  placeholder="••••••••"
-                />
+                <input type="password" [(ngModel)]="registerData.password" name="password" id="password"
+                  class="form-control" required placeholder="••••••••" />
               </div>
               <div class="d-flex justify-content-center align-items-center mt-4">
                 <button type="submit" class="btn btn-success">Regisztráció</button>
@@ -94,4 +56,3 @@
     </div>
   </div>
 </div>
-

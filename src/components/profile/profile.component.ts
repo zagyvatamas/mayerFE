@@ -199,7 +199,8 @@ export class ProfileComponent implements OnInit {
     const email = this.jwtDecoder.getEmailFromTokem('token');
 
     if (email === this.profile?.email && this.profile.id) {
-      this.authService.deleteProfile(this.profile.id).subscribe({
+      if (confirm("Biztosan törölni szeretnéd a profilod?")) {
+        this.authService.deleteProfile(this.profile.id).subscribe({
         next: () => {
           alert('Profil sikeresen törölve!');
           this.authService.logout();
@@ -209,6 +210,7 @@ export class ProfileComponent implements OnInit {
           alert('Hiba történt a profil törlése közben.');
         }
       });
+      }
     }
   }
   
