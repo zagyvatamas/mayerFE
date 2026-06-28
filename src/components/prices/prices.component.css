@@ -12,6 +12,14 @@
     margin-left: 0;
 }
 
+h2{
+  background-color: white;
+  font-size: 40px;
+  border: 1px solid gray;
+  border-radius: 15px;
+  padding: 10px;
+}
+
 
 @media (max-width: 780px) {
   .mobile {
